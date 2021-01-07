@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>201042344777-bu273okd2rv0269bj1vjfgflrcjf7pu7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.201042344777-bu273okd2rv0269bj1vjfgflrcjf7pu7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBVxcmfj56uYLsXm0T1sPbEYCiPGPsvxlA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>201042344777</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.Eficensit</string>
+	<key>PROJECT_ID</key>
+	<string>flair-technologies</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flair-technologies.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:201042344777:ios:20e33caca30da79799b898</string>
+	<key>DATABASE_URL</key>
+	<string>https://flair-technologies.firebaseio.com</string>
+</dict>
+</plist>

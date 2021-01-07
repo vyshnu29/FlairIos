@@ -1,0 +1,40 @@
+export default {
+  allLetterRequests: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  pendingLetterRequests: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  rejectedLetterRequests: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  issuedLetterRequests: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  htmlContent: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  currViewingTab: "allLetterRequests",
+  previewDialog: "",
+  approveDialog: "",
+}

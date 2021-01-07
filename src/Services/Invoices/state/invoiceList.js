@@ -1,0 +1,60 @@
+export default {
+  listAll: false,
+  listAllCriteriaID: "",
+  openInvoices: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => { },
+    noOfLoadings: 0,
+  },
+  dueInvoices: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => { },
+    noOfLoadings: 0,
+  },
+  paidInvoices: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => { },
+    noOfLoadings: 0,
+  },
+  voidInvoices: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => { },
+    noOfLoadings: 0,
+  },
+  allInvoices: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => { },
+    noOfLoadings: 0,
+  },
+  currViewingTab: "openInvoices",
+  actions: {
+    voidingInvoices: [],
+    mailingInvoices: [],
+    errorWhileVoiding: [],
+    errorWhileMailing: [],
+    invoicePreview: {
+      isLoaded: false,
+      error: null,
+      html: "",
+      url: "",
+    },
+  },
+  sendInvoiceToClient: {
+    attachments: {},
+    receivers: {
+      to: [],
+      cc: [],
+      bcc: [],
+    },
+  },
+}

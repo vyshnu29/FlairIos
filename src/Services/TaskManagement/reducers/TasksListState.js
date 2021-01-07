@@ -1,0 +1,52 @@
+export default {
+  allTasksList: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  openTasksList: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  inProgressTasksList: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  overDueTasksList: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  reviewTasksList: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  closedTasksList: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  subTasksList: {
+    data: {},
+    isLoading: true,
+    error: "",
+    listener: () => {},
+    noOfLoadings: 0,
+  },
+  currViewingTab: "allTasksList",
+}
