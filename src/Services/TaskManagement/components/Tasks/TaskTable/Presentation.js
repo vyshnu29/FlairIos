@@ -126,8 +126,9 @@ function Presentation(props) {
   const filteredInfo = data.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
   console.log('s', searchTerm);
   return (
-    <Container>
+
       <FlatList
+      bounces={false}
         data={filteredInfo}
         renderItem={({item}) => {
           return (
@@ -135,7 +136,7 @@ function Presentation(props) {
           );
         }}
       />
-    </Container>
+
   );
 }
 

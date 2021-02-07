@@ -76,12 +76,12 @@ function Presentation(props) {
                       />
                     </Button>
                   </Left>
-        <Body>
+        <Body style={{right:90}}>
           <Title style={{color:'white',fontSize:18}}>
-          Settings
+          Project Settings
           </Title>
         </Body>
-       <Right/>
+      
       </Header>
      <ProjectTable {...props} item={project[0]}/>
       <ScrollView style={{flexDirection: 'column', padding: 10}}>
@@ -95,9 +95,7 @@ function Presentation(props) {
               size={20}
               style={{
                 color: '#3F51B5',
-                backgroundColor: '#ebebeb',
-                padding: 6,
-                borderRadius: 20,
+              padding:6
               }}
             />
             <Text
@@ -140,9 +138,9 @@ function Presentation(props) {
               size={20}
               style={{
                 color: '#3F51B5',
-                backgroundColor: '#ebebeb',
+
                 padding: 6,
-                borderRadius: 20,
+
               }}
             />
             <Text
@@ -168,9 +166,9 @@ function Presentation(props) {
               color="#c42053"
               style={{
                 color: '#3F51B5',
-                backgroundColor: '#ebebeb',
+
                 padding: 6,
-                borderRadius: 20,
+  
               }}
             />
             <Text
@@ -192,9 +190,9 @@ function Presentation(props) {
               color="#c42053"
               style={{
                 color: '#3F51B5',
-                backgroundColor: '#ebebeb',
+ 
                 padding: 6,
-                borderRadius: 20,
+  
               }}
             />
             <Text
@@ -218,9 +216,9 @@ function Presentation(props) {
               color="#c42053"
               style={{
                 color: '#3F51B5',
-                backgroundColor: '#ebebeb',
+    
                 padding: 6,
-                borderRadius: 20,
+         
               }}
             />
             <Text

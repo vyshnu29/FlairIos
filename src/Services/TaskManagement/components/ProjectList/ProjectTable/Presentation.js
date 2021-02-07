@@ -52,9 +52,9 @@ function Presentation(props) {
   const filteredInfo = data.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
   if (!isLoading)
-    return (
-      <Container>
+    return(
         <FlatList
+        bounces={false}
           data={filteredInfo}
           renderItem={({item}) => {
             return (
@@ -62,7 +62,7 @@ function Presentation(props) {
             );
           }}
         />
-      </Container>
+
     );
   return <ActivityIndicator style={{top: 50}} />;
 }

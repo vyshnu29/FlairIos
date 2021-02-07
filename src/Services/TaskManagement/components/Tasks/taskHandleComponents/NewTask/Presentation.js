@@ -135,12 +135,12 @@ export default function Presentation(props) {
           style={{
           paddingBottom:15
           }}>
-        <Title style={{alignSelf:'flex-start', fontSize: 15, color: '#4a4646',paddingTop:5,paddingBottom:5}}>Status</Title>
+        <Title style={{alignSelf:'flex-start', fontSize: 15, color: 'grey',paddingTop:5,paddingBottom:5}}>Status</Title>
           <View style={{ padinTop:10,height: 49,width: '93%',borderWidth: 1,borderColor: '#e6e6e6',alignSelf: 'flex-start',paddingBottom: 10}}>
             <SelectInput
             value={state.status}
             options={options1}
-            style={{width: '90%', top: 9}}
+            style={{width: '90%', top: 14}}
             onValueChange={(value) => handleChange('status', value)}/>
             </View>
         </View>
@@ -148,12 +148,12 @@ export default function Presentation(props) {
           style={{
           paddingBottom:15
           }}>
-        <Title style={{alignSelf:'flex-start', fontSize: 15, color: '#4a4646',paddingTop:5,paddingBottom:5}}>Task type</Title>
+        <Title style={{alignSelf:'flex-start', fontSize: 15, color: 'grey',paddingTop:5,paddingBottom:5}}>Task type</Title>
            <View style={{ padinTop:10,height: 49,width: '93%',borderWidth: 1,borderColor: '#e6e6e6',alignSelf: 'flex-start',paddingBottom: 10}}>
             <SelectInput
             value={state.type}
             options={options2}
-            style={{width: '90%', top: 9}}
+            style={{width: '90%', top: 14}}
             onValueChange={(value) => handleChange('type', value)}/>
             </View>
         </View>
@@ -162,12 +162,12 @@ export default function Presentation(props) {
           style={{
           paddingBottom:15
           }}>
-        <Title style={{alignSelf:'flex-start', fontSize: 15, color: '#4a4646',paddingTop:5,paddingBottom:5}}>Priority</Title>
+        <Title style={{alignSelf:'flex-start', fontSize: 15, color: 'grey',paddingTop:5,paddingBottom:5}}>Priority</Title>
            <View style={{ padinTop:10,height: 49,width: '93%',borderWidth: 1,borderColor: '#e6e6e6',alignSelf: 'flex-start',paddingBottom: 10}}>
             <SelectInput
             value={state.priority}
             options={options3}
-            style={{width: '90%', top: 9}}
+            style={{width: '90%', top: 14}}
             onValueChange={(value) => handleChange('priority', value)}/>
             </View>
         </View> 
@@ -416,7 +416,7 @@ export default function Presentation(props) {
             paddingTop: 25,
             justifyContent: 'space-between',
           }}>
-          <Text style={{fontWeight: '600', fontSize: 16}}>Set remainder</Text>
+          <Text style={{fontWeight: '600', fontSize: 16,color:'grey'}}>Set remainder</Text>
           <CheckBox
             tintColors={{true: '#3F51B5', false: 'black'}}
             value={checked}
@@ -473,6 +473,7 @@ export default function Presentation(props) {
       </ScrollView>
       <Button
         full
+        style={{backgroundColor:'#3f51b5'}}
         //style={styles.bottomView}
         onPress={handleSubmit}
         disabled={

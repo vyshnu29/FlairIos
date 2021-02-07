@@ -125,7 +125,6 @@ export default function Presentation(props) {
           <Text style={styles.labelText1}>Bug</Text>
           </TouchableOpacity>
           </View>
-           
          }
      </View>
     }
@@ -170,7 +169,7 @@ export default function Presentation(props) {
           <Text style={styles.authorName}>{validate.dateFormatter(item.startDate) + '   |   ' + validate.dateFormatter(item.endDate)}</Text>
         </View>
       </TouchableOpacity>
-      <View style={{left:105, top:10}}>
+      <View >
  <CheckBox  value={listOfTasksToBeUnLinked.includes(item.id)} onValueChange={(value) => handleChange(value, item.id)} 
  tintColors={{ true: '#3F51B5', false: 'black' }} />
           </View>

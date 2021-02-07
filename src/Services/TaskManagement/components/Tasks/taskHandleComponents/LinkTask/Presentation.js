@@ -173,7 +173,7 @@ export default function Presentation(props) {
           <Text style={styles.authorName}>{validate.dateFormatter(item.startDate) + '   |   ' + validate.dateFormatter(item.endDate)}</Text>
         </View>
       </TouchableOpacity>
-      <View style={{left:95, top:10}}>
+      <View style={{alignSelf:'flex-end',paddingLeft:110}}>
  <CheckBox  value={listOfTasksToBeLinked.includes(item.id)} 
  tintColors={{ true: '#3F51B5', false: 'black' }}
  onValueChange={(value) => handleTask(value, item.id)} /> 

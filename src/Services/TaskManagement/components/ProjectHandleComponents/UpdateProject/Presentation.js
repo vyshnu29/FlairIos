@@ -212,6 +212,7 @@ function Presentation(props) {
        
             </ScrollView>
           <Button
+          style={{backgroundColor:'#3f51b5'}}
           full
             onPress={handleSubmit}>
            <Text style={{alignSelf: 'center',color: 'white',fontSize:18}}>Update</Text>

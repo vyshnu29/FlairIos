@@ -16,8 +16,11 @@ import {
 } from 'native-base';
 import Fileo from 'react-native-vector-icons/FontAwesome';
 import Fileo1 from 'react-native-vector-icons/AntDesign';
+import validate from '../../../../../shared/validation';
+import HTMLView from 'react-native-htmlview';
 import Comments from '../taskHandleComponents/Comments';
 import UnAuthorized from '../../../../../shared/unAuthorized';
+
 
 export default function Presentation(props) {
   const [visible, setVisible] = React.useState(false);
@@ -151,7 +154,7 @@ export default function Presentation(props) {
         <ScrollView>
           <View>
             <TaskViewer
-            
+              {...props}
               taskId={props.taskId}
               projectId={props.projectId}
               comments={comments}

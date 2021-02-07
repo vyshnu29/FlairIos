@@ -110,25 +110,25 @@ function ProjectTabScreen(props) {
         titleStyle={styles.titleStyle}
         tabs={[
           {
-            title: 'All Projects',
+            title: 'ALL PROJECTS',
             content: (
               <ProjectList condition={0} searchTerm={searchTerm} {...props} />
             ),
           },
           {
-            title: 'InProgress',
+            title: 'INPROGRESS',
             content: (
               <ProjectList condition={1} searchTerm={searchTerm} {...props} />
             ),
           },
           {
-            title: 'OverDue',
+            title: 'OVERDUE',
             content: (
               <ProjectList condition={2} searchTerm={searchTerm} {...props} />
             ),
           },
           {
-            title: 'Closed',
+            title: 'CLOSED',
             content: (
               <ProjectList condition={3} searchTerm={searchTerm} {...props} />
             ),

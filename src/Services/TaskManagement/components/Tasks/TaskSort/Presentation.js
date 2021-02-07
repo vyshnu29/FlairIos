@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {FAB} from 'react-native-paper';
-import {Input, Icon, Left, Button, Body, Right,Header} from 'native-base';
+import {Input, Icon, Left, Button, Body, Right,Header,Container} from 'native-base';
 import TaskList from '../TaskList/index';
 import Seting from 'react-native-vector-icons/Feather';
 import styles from '../../../styles/ProjectTabStyles';
@@ -25,7 +25,7 @@ const CutomHeaderScreen = (props) => {
     SetsearchTerm(term);
   };
   return (
-    <>
+    <Container>
       <StickyParallaxHeader
         statusBar={false}
         headerType="TabbedHeader"
@@ -129,7 +129,7 @@ const CutomHeaderScreen = (props) => {
         titleStyle={styles.titleStyle}
         tabs={[
           {
-            title: 'All Tasks',
+            title: 'ALL TASKS',
             content: (
               <TaskList
                 condition={0}
@@ -140,7 +140,7 @@ const CutomHeaderScreen = (props) => {
             ),
           },
           {
-            title: 'Open',
+            title: 'OPEN',
             content: (
               <TaskList
                 condition={1}
@@ -151,7 +151,7 @@ const CutomHeaderScreen = (props) => {
             ),
           },
           {
-            title: 'Inprogress',
+            title: 'INPROGRESS',
             content: (
               <TaskList
                 condition={2}
@@ -162,7 +162,7 @@ const CutomHeaderScreen = (props) => {
             ),
           },
           {
-            title: 'OverDue',
+            title: 'OVERDUE',
             content: (
               <TaskList
                 condition={3}
@@ -173,7 +173,7 @@ const CutomHeaderScreen = (props) => {
             ),
           },
           {
-            title: 'Review',
+            title: 'REVIEW',
             content: (
               <TaskList
                 condition={4}
@@ -184,7 +184,7 @@ const CutomHeaderScreen = (props) => {
             ),
           },
           {
-            title: 'Closed',
+            title: 'CLOSED',
             content: (
               <TaskList
                 condition={5}
@@ -195,7 +195,7 @@ const CutomHeaderScreen = (props) => {
             ),
           },
           {
-            title: 'SubTasks',
+            title: 'SUBTASKS',
             content: (
               <TaskList
                 condition={6}
@@ -235,7 +235,7 @@ const CutomHeaderScreen = (props) => {
           });
         }}
       />
-    </>
+    </Container>
   );
 };
 export default CutomHeaderScreen;

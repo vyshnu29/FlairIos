@@ -126,7 +126,7 @@ function Presentation(props) {
                     <Text style={{fontSize:14,marginBottom:10,color:'grey'}}>Actions:</Text>
                   </View>
                   <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
-                  <Button style={{height:30}}  onPress={() => handleUpdateLevels(employee.uid)} ><Text uppercase={false}> Apply </Text></Button>
+                  <Button style={{height:30,backgroundColor:'#3f51b5'}}  onPress={() => handleUpdateLevels(employee.uid)} ><Text uppercase={false}> Apply </Text></Button>
                   <Button danger style={{height:30}}  onPress={() => handleRemove(employee.uid)} ><Text uppercase={false}> Remove </Text></Button>
                </View>
                 </View>

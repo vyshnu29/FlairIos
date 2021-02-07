@@ -146,7 +146,6 @@ function Presentation(props) {
 
   return (
     <Container>
-
       <Header style={{backgroundColor: '#3F51B5'}} androidStatusBarColor="#000">
       <Left>
                     <Button transparent>
@@ -276,6 +275,7 @@ function Presentation(props) {
                         </Body>
                         <Right style={{bottom: 8}}>
                           <CheckBox
+                          
                             tintColors={{true: '#3F51B5', false: 'black'}}
                             style={{top:2}}
                             value={employees.includes(item.id)}
@@ -296,12 +296,12 @@ function Presentation(props) {
           style={{
           paddingTop:15
           }}>
-             <Title style={{alignSelf:'flex-start', fontSize: 15, color: '#4a4646',paddingTop:5,paddingBottom:5}}>Status</Title>
+             <Title style={{alignSelf:'flex-start', fontSize: 15, color: 'grey',paddingTop:5,paddingBottom:5}}>Status</Title>
             <View style={{ padinTop:10,height: 49,width: '93%',borderWidth: 1,borderColor: '#e6e6e6',alignSelf: 'flex-start',paddingBottom: 10}}>
             <SelectInput
             value={picker}
             options={options}
-            style={{width: '90%', top: 9}}
+            style={{width: '90%', top: 14}}
             onValueChange={(value, index) => handlePick(value)}/>
             </View>
 
@@ -387,6 +387,7 @@ function Presentation(props) {
 
       <Button
         full
+        style={{backgroundColor:'#3f51b5'}}
         onPress={handleSubmit}
         disabled={
           errCount === 0 &&
