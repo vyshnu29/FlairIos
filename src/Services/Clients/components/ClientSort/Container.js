@@ -26,6 +26,10 @@ function Container(props) {
         return {
           businessDisplayName: client.businessDisplayName,
           clientId: client.clientId,
+          email:client.email,
+          phone:client.contactNumber,
+          logo:client.logo,
+          ClientType:client.category,
           netTerms: client.netTerms,
           jobTerminationNotice: client.jobTerminationNotice,
           status:

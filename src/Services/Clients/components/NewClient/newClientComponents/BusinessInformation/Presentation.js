@@ -1,325 +1,328 @@
-import React from "react"
-import { Grid, TextField, Divider, Typography, MenuItem } from "@material-ui/core"
+import React from 'react';
 import {
-  NumberFormatCustom,
-  FederalIdPattern,
-  DoubleDigitFormatter,
-  MobileNumberFormatter,
-} from "../../../../../../shared/customNumberFormats"
+  View,
+  FlatList,
+  TouchableOpacity,
+  Linking,
+  Text,
+
+  ScrollView,
+  CheckBox,
+  StatusBar,
+} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import CountryAndState from "../../../../../../shared/countryAndState"
-import validate from "../../../../../../shared/validation"
-import { GoFileSymlinkFile } from "react-icons/go"
+import SelectInput from 'react-native-select-input-ios';
+import DatePicker from 'react-native-datepicker';
+import {BottomSheet} from 'react-native-btr';
+import {
+  Container,
+  Header,
+  Picker,
+  Item,
+  Button,
+  Icon,
+  Input,
+} from 'native-base';
+import validate from '../../../../../../shared/validation';
 
 function Presentation(props) {
-  const { businessInformation, handleChange, handleKeyValuePair, isUploading, handleFile } = props
-  const jobTerminationNoticeList = ["1-week", "2-weeks", "3-weeks", "4-weeks"]
-  const categoryList = ["End Client", "Prime-Contractor", "Sub-Contractor"]
-
+  const {
+    businessInformation,
+    handleChange,
+    handleKeyValuePair,
+    isUploading,
+    handleFile,
+  } = props;
+ 
+  const options1 = [
+    {value: '', label: 'Client Category *'},
+    {value: 'End Client', label: 'End Client'},
+    {value: 'Prime-Contractor', label: 'Prime-Contractor'},
+    {value: 'Sub-Contractor', label: 'Sub-Contractor'},
+  ];
+  
   return (
-    <div className="custom-card">
-      <form>
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Business Name"
-              helperText={
-                businessInformation.businessName.length
-                  ? validate.checkName(businessInformation.businessName)
-                    ? ""
-                    : "Enter valid Business name"
-                  : ""
-              }
-              name="businessName"
-              id="new-client-businessName"
+    <View>
+      <View style={{marginTop: 24, alignSelf: 'flex-start'}}>
+        <Text style={{fontSize: 20, fontWeight: '600',textDecorationLine:'underline'}}>
+          Business Information
+        </Text>
+      </View>
+      <ScrollView style={{marginTop: 10}} showsVerticalScrollIndicator={false}>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Business Name *"
               value={businessInformation.businessName}
-              onChange={handleChange}
+              onChangeText={(value) => {
+                handleChange('businessName', value);
+              }}
             />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Business Display Name"
-              name="businessDisplayName"
-              id="new-client-businessDisplayName"
-              helperText={
-                businessInformation.businessDisplayName.length
-                  ? validate.checkName(businessInformation.businessDisplayName)
-                    ? ""
-                    : "Enter valid Business display name"
-                  : ""
-              }
+          </Item>
+          {businessInformation.businessName.length ? (
+            validate.checkName(businessInformation.businessName) ? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid Business name
+              </Text>
+            )
+          ) : null}
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Business Display Name *"
               value={businessInformation.businessDisplayName}
-              onChange={handleChange}
+              onChangeText={(value) => {
+                handleChange('businessDisplayName', value);
+              }}
             />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Email"
-              name="email"
+          </Item>
+          {businessInformation.businessDisplayName.length ? (
+            validate.checkName(
+              businessInformation.businessDisplayName,
+            ) ? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid Business display name
+              </Text>
+            )
+          ) : null}
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Email *"
               value={businessInformation.email}
-              id="new-client-email"
-              helperText={
-                businessInformation.email.length
-                  ? validate.checkEmail(businessInformation.email)
-                    ? ""
-                    : "Enter valid email id"
-                  : ""
-              }
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Contact Number"
-              name="contactNumber"
-              id="new-client-contactNumber"
-              helperText={
-                businessInformation.contactNumber.length
-                  ? validate.checkNumber(businessInformation.contactNumber)
-                    ? ""
-                    : "Enter valid contact number"
-                  : ""
-              }
-              value={businessInformation.contactNumber}
-              onChange={handleChange}
-              InputProps={{
-                inputComponent: MobileNumberFormatter,
+              onChangeText={(value) => {
+                handleChange('email', value);
               }}
             />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Federal ID"
-              placeholder="##-######"
-              name="federalId"
-              value={businessInformation.federalId}
-              id="new-client-federalId"
-              helperText={
-                businessInformation.federalId.length
-                  ? businessInformation.federalId.trim().length === 8
-                    ? ""
-                    : "Enter valid federalId"
-                  : ""
-              }
-              onChange={handleChange}
-              InputProps={{
-                inputComponent: FederalIdPattern,
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Website"
-              name="website"
+          </Item>
+          {businessInformation.email.length ? (
+            validate.checkEmail(businessInformation.email) ? null : (
+              <Text style={{color: 'red', left: 5}}>Enter valid email id</Text>
+            )
+          ) : null}
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Website *"
               value={businessInformation.website}
-              id="new-client-website"
-              helperText={
-                businessInformation.website.length
-                  ? validate.checkWebsite(businessInformation.website)
-                    ? ""
-                    : "Enter valid website"
-                  : ""
-              }
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Net Terms"
-              name="netTerms"
-              id="new-client-netTerms"
-              value={businessInformation.netTerms}
-              onChange={handleChange}
-              InputProps={{
-                inputComponent: DoubleDigitFormatter,
+              onChangeText={(value) => {
+                handleChange('website', value);
               }}
             />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              select
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Job Termination Notice"
-              name="jobTerminationNotice"
-              id="new-client-jobTerminationNotice"
-              value={businessInformation.jobTerminationNotice}
-              onChange={handleChange}
-            >
-              <MenuItem value={""}>None</MenuItem>
-              {jobTerminationNoticeList.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              select
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              label="Client Category"
-              name="category"
-              value={businessInformation.category}
-              onChange={handleChange}
-              id="new-client-category"
-            >
-              <MenuItem value="">None</MenuItem>
-              {categoryList.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              label="Fax"
-              name="fax"
-              value={businessInformation.fax}
-              id="new-client-fax"
-              helperText={
-                businessInformation.fax.length
-                  ? validate.checkNumber(businessInformation.fax)
-                    ? ""
-                    : "Enter valid fax number"
-                  : ""
-              }
-              onChange={handleChange}
-              InputProps={{
-                inputComponent: MobileNumberFormatter,
-              }}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Logo"
-              type="file"
-              name="images-waterMark"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              size="small"
-              fullWidth
-              onChange={handleFile}
-            />
-            <p>
-              {businessInformation.logo !== "" ? (
-                <a target="_blank" rel="noopener noreferrer" href={businessInformation.logo}>
-                  <GoFileSymlinkFile size={22} />
-                </a>
+          </Item>
+          {businessInformation.website.length ? (
+            validate.checkWebsite(businessInformation.website) ? null : (
+              <Text style={{color: 'red', left: 5}}>Enter valid website</Text>
+            )
+          ) : null}
+        </View>
+       
+        <View
+          style={{
+            padinTop: 15,
+            height: 49,
+            width: '93%',
+            borderWidth: 1,
+            borderColor: '#e6e6e6',
+            alignSelf: 'flex-start',
+            marginBottom: 15,
+          }}>
+            <Picker
+            mode="dropdown"
+            iosIcon={<Icon name="arrow-down" />}
+            placeholder="Status"
+            textStyle={{color: '#5cb85c'}}
+            itemStyle={{
+              backgroundColor: '#d3d3d3',
+              marginLeft: 0,
+              paddingLeft: 10,
+            }}
+            itemTextStyle={{color: '#788ad2'}}
+            style={{width: undefined}}
+            selectedValue={businessInformation.jobTerminationNotice}
+            onValueChange={(value, index) => handleChange('jobTerminationNotice', value)}>
+            <Picker.Item label="Job Termination Notice *" value="" />
+            <Picker.Item label="1-week" value="1-week" />
+            <Picker.Item label="2-weeks" value="2-weeks" />
+            <Picker.Item label="3-weeks" value="3-weeks" />
+            <Picker.Item label="4-weeks" value="4-weeks" />
+          </Picker>
+        </View>
+        <View
+          style={{
+            paddingBottom: 15,
+            height: 49,
+            width: '93%',
+            borderWidth: 1,
+            borderColor: '#e6e6e6',
+            alignSelf: 'flex-start',
+            marginBottom: 10,
+          }}>
+             <Picker
+            mode="dropdown"
+            iosIcon={<Icon name="arrow-down" />}
+            placeholder="Status"
+            textStyle={{color: '#5cb85c'}}
+            itemStyle={{
+              backgroundColor: '#d3d3d3',
+              marginLeft: 0,
+              paddingLeft: 10,
+            }}
+            itemTextStyle={{color: '#788ad2'}}
+            style={{width: undefined}}
+            selectedValue={businessInformation.category}
+            onValueChange={(value, index) => handleChange('category', value)}>
+            <Picker.Item label="Client Category *" value="" />
+            <Picker.Item label="End Client" value="End Client" />
+            <Picker.Item label="Prime-Contractor" value="Prime-Contractor" />
+            <Picker.Item label="Sub-Contractor" value="Sub-Contractor" />
+          </Picker>
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <TextInput
+            label="Fax"
+            keyboardType="number-pad"
+            maxLength={10}
+            render={(props) => (
+              <TextInputMask {...props} mask="[0000000000]" />
+            )}
+            value={businessInformation.fax}
+            onChangeText={(value) => {
+              handleChange('fax', value);
+            }}
+          />
+          {businessInformation.fax.length
+                  ? (validate.checkNumber(businessInformation.fax) ? null : (
+              <Text style={{color: 'red', left: 5}}>Enter valid fax number</Text>
+            )
+          ) : null}
+        </View>
+       
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          
+          {businessInformation.federalId.length ? (
+            businessInformation.federalId.trim().length === 9 ? null : (
+              <Text style={{color: 'red', left: 5}}>Enter valid federalId</Text>
+            )
+          ) : null}
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+         
+        </View>
+        <View style={{paddingBottom: 3, alignSelf: 'flex-start'}}> 
+        <Text style={{fontSize:16,color:'gray'}}>Logo</Text>
+        </View>
+        <View
+          style={{
+            paddingBottom: 15,
+            
+            marginBottom: 10,
+          }}>
+             <Button iconLeft bordered style={{width: 130,height:30,margin:9}} onPress={handleFile} >
+            <Icon name="link" />
+            <Text style={{right: 10, color: '#3F51B5'}}>Choose file</Text>
+          </Button>
+          </View>
+          <View style={{flexDirection: 'row',justifyContent:"space-between"}}>
+            <>
+              {businessInformation.logo !== '' ? (
+                <View style={{marginLeft: 12,bottom:22}}>
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL(businessInformation.logo)}>
+                    <Text style={{ color: '#62B1F6',textDecorationLine: 'underline',fontSize:16}}>
+                      logo attachment
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               ) : (
-                <p>No file choosen</p>
-              )}{" "}
-            </p>
-            {isUploading ? <p>Uploading please wait...</p> : ""}
-          </Grid>
-        </Grid>
-        <br />
-        <Typography variant="h6" className="mt-2">
+                <View style={{marginLeft: 12,bottom:22}}>
+                  <Text style={{ color: 'grey'}}>
+                    No file choosen
+                  </Text>
+                </View>
+              )}
+            </>
+          </View>
+        {isUploading ? (
+          <View style={{marginLeft: 12,bottom:22}}>
+            <Text style={{ color: 'grey'}}>
+              Uploading Please Wait...
+            </Text>
+          </View>
+        ) : (
+          null
+        )}
+         <View style={{marginTop: 15, alignSelf: 'flex-start'}}>
+        <Text style={{fontSize: 20, fontWeight: '600',textDecorationLine:'underline'}}>
           Invoice Location
-        </Typography>
-        <Divider />
-        <br />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <TextField
-              label="Address Line 1"
-              name="invoiceLocation-line1"
-              id="new-client-invoiceLocation-line1"
+        </Text>
+      </View>
+      <View style={{paddingBottom: 15,marginTop:15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Address Line 1 *"
               value={businessInformation.invoiceLocation.line1}
-              helperText={
-                businessInformation.invoiceLocation.line1.length
-                  ? validate.checkAddress(businessInformation.invoiceLocation.line1)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              onChange={handleChange}
+              onChangeText={(value) => {
+                handleChange('invoiceLocation-line1', value);
+              }}
             />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Address Line 2"
-              name="invoiceLocation-line2"
-              id="new-client-invoiceLocation-line2"
+          </Item>
+          { businessInformation.invoiceLocation.line1.length
+                  ? (validate.checkAddress(businessInformation.invoiceLocation.line1) ? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid address
+              </Text>
+            )
+          ) : null}
+        </View>
+        <View style={{paddingBottom: 15,marginTop:10, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Address Line 2"
               value={businessInformation.invoiceLocation.line2}
-              helperText={
-                businessInformation.invoiceLocation.line2.length
-                  ? validate.checkAddress(businessInformation.invoiceLocation.line2)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              variant="outlined"
-              size="small"
-              fullWidth
-              onChange={handleChange}
+              onChangeText={(value) => {
+                handleChange('invoiceLocation-line2', value);
+              }}
             />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="City"
-              name="invoiceLocation-city"
-              id="new-client-invoiceLocation-city"
+          </Item>
+          { businessInformation.invoiceLocation.line2.length
+                  ? (validate.checkAddress(businessInformation.invoiceLocation.line2) ? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid address
+              </Text>
+            )
+          ) : null}
+        </View>
+        <View style={{paddingBottom: 15,marginTop:10, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="City *"
               value={businessInformation.invoiceLocation.city}
-              helperText={
-                businessInformation.invoiceLocation.city.length
-                  ? validate.checkAddress(businessInformation.invoiceLocation.city)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              onChange={handleChange}
+              onChangeText={(value) => {
+                handleChange('invoiceLocation-city', value);
+              }}
             />
-          </Grid>
-          <Grid item xs={8}>
-            <CountryAndState
+          </Item>
+          {  businessInformation.invoiceLocation.city.length
+                  ? (validate.checkAddress(businessInformation.invoiceLocation.city) ? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid city
+              </Text>
+            )
+          ) : null}
+        </View>
+        <CountryAndState
               handleKeyValuePair={handleKeyValuePair}
               countries={businessInformation.countries}
               states={businessInformation.states}
@@ -327,31 +330,25 @@ function Presentation(props) {
               country={businessInformation.invoiceLocation.country}
               spacing={1}
             />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Zip code"
-              name="invoiceLocation-zipCode"
-              value={businessInformation.invoiceLocation.zipCode}
-              variant="outlined"
-              size="small"
-              id="new-client-invoiceLocation"
-              required
-              helperText={
-                businessInformation.invoiceLocation.zipCode.length
-                  ? validate.checkZip(businessInformation.invoiceLocation.zipCode)
-                    ? ""
-                    : "Enter valid zip code"
-                  : ""
-              }
-              fullWidth
-              onChange={handleChange}
-            />
-          </Grid>
-        </Grid>
-      </form>
-    </div>
-  )
+         <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <TextInput
+            label="Zip code *"
+            keyboardType="number-pad"
+            value={businessInformation.invoiceLocation.zipCode}
+            onChangeText={(value) => {
+              handleChange('invoiceLocation-zipCode', value);
+            }}
+          />
+         { businessInformation.invoiceLocation.zipCode.length
+                  ? (validate.checkZip(businessInformation.invoiceLocation.zipCode)? null : (
+              <Text style={{color: 'red', left: 5}}>Enter valid zip code</Text>
+            )
+          ) : null}
+        </View>
+      </ScrollView>
+    </View>
+  );
 }
 
-export default Presentation
+export default Presentation;

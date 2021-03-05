@@ -1,119 +1,126 @@
-import React from "react"
-import { Grid, TextField, Button } from "@material-ui/core"
+import React from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  CheckBox,
+  StatusBar,
+} from 'react-native';
+import {TextInput} from 'react-native-paper';
+import {
+  Container,
+  Header,
+  Picker,
+  Item,
+  Button,
+  Icon,
+  Input,
+} from 'native-base';
 import validate from "../../../../../../../shared/validation"
 import CountryAndState from "../../../../../../../shared/countryAndState"
+
 
 function Presentation(props) {
   const { location, handleChange, onSubmit, handleKeyValuePair } = props
   return (
-    <div className="custom-card">
-      <form onSubmit={onSubmit}>
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <TextField
-              label="Address Line 1"
-              name="locationsline1"
-              value={location.locationsline1}
-              variant="outlined"
-              helperText={
-                location.locationsline1.length
-                  ? validate.checkAddress(location.locationsline1)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              size="small"
-              required
-              fullWidth
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Address Line 2"
-              name="locationsline2"
-              value={location.locationsline2}
-              helperText={
-                location.locationsline2.length
-                  ? validate.checkAddress(location.locationsline2)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              variant="outlined"
-              size="small"
-              fullWidth
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="City"
-              name="locationscity"
-              value={location.locationscity}
-              helperText={
-                location.locationscity.length
-                  ? validate.checkAddress(location.locationscity)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={8}>
-            <CountryAndState
-              handleKeyValuePair={handleKeyValuePair}
-              countries={location.countries}
-              states={location.states}
-              state={location.locationsstate_name}
-              country={location.locationscountry}
-              spacing={1}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Zip code"
-              name="locationszip"
-              value={location.locationszip}
-              helperText={
-                location.locationszip.length
-                  ? validate.checkZip(location.locationszip)
-                    ? ""
-                    : "Enter valid zip code"
-                  : ""
-              }
-              variant="outlined"
-              size="small"
-              required
-              fullWidth
-              onChange={handleChange}
-            />
-          </Grid>
-        </Grid>
-        <br />
-        <div className="text-center">
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={
+    <View>
+      <ScrollView>
+      <View style={{marginTop: 24, alignSelf: 'flex-start'}}>
+        <Text style={{fontSize: 20, fontWeight: '600',textDecorationLine:'underline'}}>
+          Locations
+        </Text>
+      </View>
+    <View style={{paddingBottom: 15,marginTop:15, width: '93%', alignSelf: 'flex-start'}}>
+    <Item regular>
+      <Input
+        placeholder="Address Line 1 *"
+        value={location.locationsline1}
+        onChangeText={(value) => {
+          handleChange('locationsline1', value);
+        }}
+      />
+    </Item>
+    {   location.locationsline1.length
+                  ? (validate.checkAddress(location.locationsline1) ? null : (
+        <Text style={{color: 'red', left: 5}}>
+          Enter valid address
+        </Text>
+      )
+    ) : null}
+  </View>
+  <View style={{paddingBottom: 15,marginTop:10, width: '93%', alignSelf: 'flex-start'}}>
+    <Item regular>
+      <Input
+        placeholder="Address Line 2"
+        value={location.locationsline2}
+        onChangeText={(value) => {
+          handleChange('locationsline2', value);
+        }}
+      />
+    </Item>
+    {   location.locationsline2.length
+                  ? (validate.checkAddress(location.locationsline2) ? null : (
+        <Text style={{color: 'red', left: 5}}>
+          Enter valid address
+        </Text>
+      )
+    ) : null}
+  </View>
+  <View style={{paddingBottom: 15,marginTop:10, width: '93%', alignSelf: 'flex-start'}}>
+    <Item regular>
+      <Input
+        placeholder="City *"
+        value={location.locationscity}
+        onChangeText={(value) => {
+          handleChange('locationscity', value);
+        }}
+      />
+    </Item>
+    {   location.locationscity.length
+                  ? (validate.checkAddress(location.locationscity) ? null : (
+        <Text style={{color: 'red', left: 5}}>
+          Enter valid city
+        </Text>
+      )
+    ) : null}
+  </View>
+  <CountryAndState
+       handleKeyValuePair={handleKeyValuePair}
+       countries={location.countries}
+       states={location.states}
+       state={location.locationsstate_name}
+       country={location.locationscountry}
+       spacing={1}
+      />
+   <View
+    style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+    <TextInput
+      label="Zip code *"
+      keyboardType="number-pad"
+      value={location.locationszip}
+      onChangeText={(value) => {
+        handleChange('locationszip', value);
+      }}
+    />
+   {  location.locationszip.length
+            ? (validate.checkZip(location.locationszip)? null : (
+        <Text style={{color: 'red', left: 5}}>Enter valid zip code</Text>
+      )
+    ) : null}
+  </View> 
+  <View style={{alignSelf: 'flex-end',right:15,bottom:9}} >
+        <Button transparent onPress={onSubmit}  disabled={
               !location.locationsline1.trim() ||
               !location.locationscountry.trim() ||
               !location.locationscity.trim() ||
               !location.locationsstate_name.trim() ||
               !validate.checkZip(location.locationszip)
-            }
-          >
-            Save
+            }>
+            <Text style={{color:'#3F51B5',fontWeight:'700',fontSize:17}}>Save</Text>
           </Button>
-        </div>
-      </form>
-    </div>
+          </View>
+      </ScrollView> 
+  </View>
   )
 }
 

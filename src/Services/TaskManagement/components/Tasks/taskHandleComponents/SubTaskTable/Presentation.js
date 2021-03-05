@@ -4,7 +4,8 @@ import { configuration } from "../../../../../../config/companyConfig";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { differenceInDays } from "date-fns";
-import TaskTable from '../../../ReusableUi/TaskTable'
+import validate from '../../../../../../shared/validation'
+import HTMLView from 'react-native-htmlview';
 import {
   View,
   ScrollView,
@@ -52,7 +53,7 @@ export default function DenseTable(props) {
     }
     return final;
   };
-  const validate = new Validation();
+  
   const metaInfo = new MetaInfo();
   dayjs.extend(relativeTime);
 
@@ -78,6 +79,7 @@ export default function DenseTable(props) {
         startdate: task.startdate,
         enddate: task.enddate,
         status: task.status,
+        description:task.description,
         assignee:
           task.assignee && task.assignee.map((e) => metaInfo.emailToName(e)),
         createdByName: metaInfo.emailToName(task.createdBy),
@@ -102,8 +104,105 @@ export default function DenseTable(props) {
           data={data}
           renderItem={({item}) => {
             return (
-               
-             <TaskTable {...props} item={item} />
+              <TouchableOpacity
+              style={styles.container}
+              activeOpacity={0.95}>
+              <View style={styles.labelContainer1}>
+              <View>
+              <View
+                style={{
+                  borderRadius: 16,
+                  backgroundColor: 'rgb(246,245,248)',
+                }}>
+                <TouchableOpacity>
+                  <Text style={styles.labelText}>{item.priority}</Text>
+                </TouchableOpacity>
+              </View>
+          </View>       
+                {item.type === 'Task' ? (
+                  <View style={{borderRadius: 16, backgroundColor: '#17a2b8'}}>
+                    <TouchableOpacity
+                      >
+                      <Text style={styles.labelText1}>Task</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <View style={{borderRadius: 16, backgroundColor: '#db2828'}}>
+                    <TouchableOpacity
+                     >
+                      <Text style={styles.labelText1}>Bug</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+              <View style={styles.labelContainer}>
+                <View style={styles.labelTextContainer}>
+                  <TouchableOpacity
+                    >
+                    <Text style={styles.labelText}>
+                      {item.projectTaskId
+                        ? item.projectTaskId
+                        : props.cid + '-' + item.cid}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                {item.status === 'Open' ? (
+                  <View style={{borderRadius: 16, backgroundColor: '#21ba45'}}>
+                    <TouchableOpacity
+                     >
+                      <Text style={styles.labelText1}>Open</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : item.status === 'InProgress' ? (
+                  <View style={{borderRadius: 16, backgroundColor: '#f78a14'}}>
+                    <TouchableOpacity
+                      >
+                      <Text style={styles.labelText1}>In Progress</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : item.status === 'Closed' ? (
+                  <View style={{borderRadius: 16, backgroundColor: '#d9534f'}}>
+                    <TouchableOpacity
+                     >
+                      <Text style={styles.labelText1}>Closed</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <View style={{borderRadius: 16, backgroundColor: 'grey'}}>
+                    <TouchableOpacity
+                     >
+                      <Text style={styles.labelText1}>{item.status}</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+        
+              <View style={styles.mainTextContainer}>
+                <Text style={styles.mainText}>{item.title}</Text>
+              </View>
+              <View style={styles.authorWrapper}>
+                <TouchableOpacity
+                  style={styles.authorContainer}
+                  >
+                  <View style={styles.footerContainer}>
+                    <Text style={styles.authorName}>
+                      {validate.dateFormatter(item.startdate) +
+                        '   |   ' +
+                        validate.dateFormatter(item.enddate)}
+                    </Text>
+                  </View>
+                  <View style={{paddingTop:5,flexDirection:'row'}}>
+            <Text style={{color:'grey'}}>Description : {' '}</Text>
+            {
+              item.description ?  <HTMLView value={item.description} style={{maxWidth:180}} />
+              : <Text style={{color:'grey'}}>-----</Text>
+            }
+         
+            </View>
+                </TouchableOpacity>
+                <View style={styles.authorBlankContainer} />
+              </View>
+            </TouchableOpacity>
             );
           }}
          
@@ -121,7 +220,7 @@ export default function DenseTable(props) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 12,
-    width:'95%',
+    width:'98%',
     shadowColor: 'rgb(35,35,35)',
     shadowOffset: {
       width: 1,
@@ -131,12 +230,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
    // width: '100%',
     backgroundColor: 'white',
-    borderRadius: 24,
+    borderRadius: 10,
     alignSelf:'center',
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderWidth: Platform.select({ ios: 0, android: 2 }),
     borderColor: 'rgb(246,245,248)',
+  },
+  labelTextContainer: {
+   // backgroundColor: 'rgb(246,245,248)',
+    borderRadius: 16,
   },
   labelContainer: {
     flexDirection: 'row',
@@ -233,4 +336,3 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
 });
-

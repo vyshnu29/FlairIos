@@ -1,292 +1,260 @@
-import React from "react"
-import { Grid, TextField, MenuItem, Button } from "@material-ui/core"
+import React from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  CheckBox,
+  StatusBar,
+} from 'react-native';
+import {TextInput} from 'react-native-paper';
+import SelectInput from 'react-native-select-input-ios';
+import DatePicker from 'react-native-datepicker';
+
+import {BottomSheet} from 'react-native-btr';
+import {
+  Container,
+  Header,
+  Picker,
+  Item,
+  Button,
+  Icon,
+  Input,
+} from 'native-base';
 import validate from "../../../../../../../shared/validation"
 import CountryAndState from "../../../../../../../shared/countryAndState"
-import {
-  MobileNumberFormatter,
-  NumberFormatCustom,
-} from "../../../../../../../shared/customNumberFormats"
 
 function Presentation(props) {
   const { contact, handleChange, onSubmit, handleKeyValuePair } = props
   const genderList = ["Female", "Male", "Others"]
   return (
-    <div className="custom-card">
-      <form onSubmit={onSubmit}>
-        <Grid container spacing={1}>
-          <Grid item xs={3}>
-            <TextField
-              label="Representative Name"
-              name="representativeName"
+    <View>
+      <View style={{marginTop: 24, alignSelf: 'flex-start'}}>
+        <Text style={{fontSize: 20, fontWeight: '600',textDecorationLine:'underline'}}>
+          Contact
+        </Text>
+      </View>
+      <ScrollView style={{marginTop: 10}} showsVerticalScrollIndicator={false}>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Representative Name *"
               value={contact.representativeName}
-              onChange={handleChange}
-              helperText={
-                contact.representativeName.length
-                  ? validate.checkName(contact.representativeName)
-                    ? ""
-                    : "Enter valid representative name"
-                  : ""
-              }
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Job Title"
-              name="jobTitle"
-              value={contact.jobTitle}
-              onChange={handleChange}
-              helperText={
-                contact.jobTitle.length
-                  ? validate.checkName(contact.jobTitle)
-                    ? ""
-                    : "Enter valid job title"
-                  : ""
-              }
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              select
-              label="Gender"
-              name="gender"
-              value={contact.gender}
-              onChange={handleChange}
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-            >
-              {genderList.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Email"
-              name="email"
-              value={contact.email}
-              onChange={handleChange}
-              helperText={
-                contact.email.length
-                  ? validate.checkEmail(contact.email)
-                    ? ""
-                    : "Enter valid email"
-                  : ""
-              }
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Mobile"
-              name="mobile"
-              value={contact.mobile}
-              onChange={handleChange}
-              helperText={
-                contact.mobile.length
-                  ? validate.checkNumber(contact.mobile)
-                    ? ""
-                    : "Enter valid phone number"
-                  : ""
-              }
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-              InputProps={{
-                inputComponent: MobileNumberFormatter,
+              onChangeText={(value) => {
+                handleChange('representativeName', value);
               }}
             />
-          </Grid>
-          <Grid item xs={3}>
-            <Grid container spacing={1}>
-              <Grid item xs={8}>
-                <TextField
-                  label="Work Phone"
-                  name="workPhone"
-                  value={contact.workPhone}
-                  onChange={handleChange}
-                  helperText={
+          </Item>
+          {contact.representativeName.length
+                  ?( validate.checkName(contact.representativeName)? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid representative Name
+              </Text>
+            )
+          ) : null}
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Job Title *"
+              value={contact.jobTitle}
+              onChangeText={(value) => {
+                handleChange('jobTitle', value);
+              }}
+            />
+          </Item>
+          {contact.jobTitle.length
+                  ? (validate.checkName(contact.jobTitle)
+             ? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid Business Job Title
+              </Text>
+            )
+          ) : null}
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Email *"
+              value={contact.email}
+              onChangeText={(value) => {
+                handleChange('email', value);
+              }}
+            />
+          </Item>
+          { contact.email.length
+                  ? (validate.checkEmail(contact.email) ? null : (
+              <Text style={{color: 'red', left: 5}}>Enter valid email id</Text>
+            )
+          ) : null}
+        </View>
+      <View style={{paddingBottom: 15,marginTop:15, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Address Line 1 *"
+              value={contact.line1}
+              onChangeText={(value) => {
+                handleChange('line1', value);
+              }}
+            />
+          </Item>
+          {  contact.line1.length
+                  ? (validate.checkAddress(contact.line1) ? null : (
+              <Text style={{color: 'red', left: 5}}>
+                Enter valid address
+              </Text>
+            )
+          ) : null}
+        </View>
+        <View style={{paddingBottom: 15,marginTop:10, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="Address Line 2"
+              value={contact.line2}
+              onChangeText={(value) => {
+                handleChange('line2', value);
+              }}
+            />
+          </Item>
+        </View>
+        <View style={{paddingBottom: 15,marginTop:10, width: '93%', alignSelf: 'flex-start'}}>
+          <Item regular>
+            <Input
+              placeholder="City *"
+              value={contact.city}
+              onChangeText={(value) => {
+                handleChange('city', value);
+              }}
+            />
+          </Item>
+        </View>
+        <CountryAndState
+             handleKeyValuePair={handleKeyValuePair}
+             countries={contact.countries}
+             states={contact.states}
+             state={contact.state_name}
+             country={contact.country}
+             spacing={1}
+            />
+         <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <TextInput
+            label="Zip code *"
+            keyboardType="number-pad"
+            value={contact.zip}
+            onChangeText={(value) => {
+              handleChange('zip', value);
+            }}
+          />
+         {  contact.zip.length
+                  ? (validate.checkZip(contact.zip)? null : (
+              <Text style={{color: 'red', left: 5}}>Enter valid zip code</Text>
+            )
+          ) : null}
+        </View>   
+        <View
+          style={{
+            padinTop: 15,
+            height: 49,
+            width: '93%',
+            borderWidth: 1,
+            borderColor: '#e6e6e6',
+            alignSelf: 'flex-start',
+            marginBottom: 15,
+          }}>
+            <Picker
+            mode="dropdown"
+            iosIcon={<Icon name="arrow-down" />}
+            placeholder="Status"
+            textStyle={{color: '#5cb85c'}}
+            itemStyle={{
+              backgroundColor: '#d3d3d3',
+              marginLeft: 0,
+              paddingLeft: 10,
+            }}
+            itemTextStyle={{color: '#788ad2'}}
+            style={{width: undefined}}
+            selectedValue={contact.gender}
+            onValueChange={(value, index) => handleChange('gender', value)}>
+            <Picker.Item label="Gender *" value="" />
+            <Picker.Item label="Female" value="Female" />
+            <Picker.Item label="Male" value="Male" />
+            <Picker.Item label="Others" value="Others" />
+          </Picker>
+        </View>
+       
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <TextInput
+            label="Mobile"
+            keyboardType="number-pad"
+            maxLength={10}
+            value={contact.mobile}
+            render={(props) => (
+              <TextInputMask {...props} mask="[0000000000]" />
+            )}
+            onChangeText={(value) => {
+              handleChange("mobile", value);
+            }}
+          />
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <TextInput
+            label="Work Phone *"
+            keyboardType="number-pad"
+            maxLength={10}
+            value={contact.workPhone}
+            render={(props) => (
+              <TextInputMask {...props} mask="[0000000000]" />
+            )}
+            onChangeText={(value) => {
+              handleChange("workPhone", value);
+            }}
+          />
+          {
                     contact.workPhone.length
                       ? validate.checkNumber(contact.workPhone)
-                        ? ""
-                        : "Enter valid work phone"
-                      : ""
+                        ? null
+                        : <Text style={{color: 'red', left: 5}}>Enter valid work phone</Text>
+                      : null
                   }
-                  size="small"
-                  required
-                  fullWidth
-                  variant="outlined"
-                  InputProps={{
-                    inputComponent: MobileNumberFormatter,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Ext."
-                  name="workPhoneExtension"
-                  value={contact.workPhoneExtension}
-                  onChange={handleChange}
-                  // helperText={
-                  // 	workPhoneExtension.length
-                  // 		? validate.checkNumber(workPhoneExtension)
-                  // 			? ''
-                  // 			: 'Enter valid work phone'
-                  // 		: ''
-                  // }
-                  size="small"
-                  required
-                  fullWidth
-                  variant="outlined"
-                  InputProps={{
-                    inputComponent: NumberFormatCustom,
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Home Phone"
-              name="homePhone"
-              value={contact.homePhone}
-              onChange={handleChange}
-              helperText={
-                contact.homePhone.length
-                  ? validate.checkNumber(contact.homePhone)
-                    ? ""
-                    : "Enter valid home phone"
-                  : ""
-              }
-              size="small"
-              fullWidth
-              variant="outlined"
-              InputProps={{
-                inputComponent: MobileNumberFormatter,
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Address Line 1"
-              name="line1"
-              value={contact.line1}
-              onChange={handleChange}
-              helperText={
-                contact.line1.length
-                  ? validate.checkAddress(contact.line1)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Address Line 2"
-              name="line2"
-              value={contact.line2}
-              onChange={handleChange}
-              helperText={
-                contact.line2.length
-                  ? validate.checkAddress(contact.line2)
-                    ? ""
-                    : "Enter valid address"
-                  : ""
-              }
-              size="small"
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="City"
-              name="city"
-              value={contact.city}
-              onChange={handleChange}
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <CountryAndState
-              handleKeyValuePair={handleKeyValuePair}
-              countries={contact.countries}
-              states={contact.states}
-              state={contact.state_name}
-              country={contact.country}
-              spacing={1}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Zip Code"
-              name="zip"
-              value={contact.zip}
-              onChange={handleChange}
-              helperText={
-                contact.zip.length
-                  ? validate.checkZip(contact.zip)
-                    ? ""
-                    : "Enter valid zip code"
-                  : ""
-              }
-              size="small"
-              required
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-        </Grid>
-        <br />
-        <div className="text-center">
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={
-              !validate.checkName(contact.representativeName) ||
-              !contact.gender.trim() ||
-              !validate.checkName(contact.jobTitle) ||
-              !validate.checkEmail(contact.email) ||
-              !validate.checkNumber(contact.mobile) ||
-              !validate.checkNumber(contact.workPhone) ||
-              !validate.checkAddress(contact.line1) ||
-              !validate.checkZip(contact.zip) ||
-              !contact.city.trim() ||
-              !contact.workPhoneExtension.trim() ||
-              !contact.state_name ||
-              !contact.country ||
-              !(contact.homePhone.length === 0 || validate.checkNumber(contact.homePhone))
-            }
-          >
-            Save
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <TextInput
+            label="Ext."
+            keyboardType="number-pad"
+            value={contact.workPhoneExtension}
+            onChangeText={(value) => {
+              handleChange("workPhoneExtension", value);
+            }}
+          />
+        </View>
+        <View
+          style={{paddingBottom: 15, width: '93%', alignSelf: 'flex-start'}}>
+          <TextInput
+            label="Home Phone"
+            keyboardType="number-pad"
+            maxLength={10}
+            value={contact.homePhone}
+            render={(props) => (
+              <TextInputMask {...props} mask="[0000000000]" />
+            )}
+            onChangeText={(value) => {
+              handleChange("homePhone", value);
+            }}
+          />
+        </View>
+        <View style={{alignSelf: 'flex-end',right:15,bottom:9}} >
+        <Button transparent onPress={onSubmit}>
+            <Text style={{color:'#3F51B5',fontWeight:'700',fontSize:17}}>Save</Text>
           </Button>
-        </div>
-      </form>
-    </div>
+          </View>
+      </ScrollView>
+    </View>
   )
 }
 

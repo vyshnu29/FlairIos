@@ -24,7 +24,8 @@ import {
 import {
   View,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  StyleSheet
 } from 'react-native';
 
 export default function TabsView(props) {
@@ -37,111 +38,17 @@ export default function TabsView(props) {
     SetsearchTerm(term);
   };
   return (
-    // <Container>
-    //    {!visible ? (
-    //   <Header>
-    //       <Left>
-    //         <Button transparent>
-    //           <Icon
-    //             name="arrow-back"
-    //             onPress={() => {
-    //               props.navigation.goBack();
-    //             }}
-    //           />
-    //         </Button>
-    //       </Left>
-    //       <Body>
-    //         <Title style={{color: 'white'}}>Client List</Title>
-    //       </Body>
-    //       <Right>
-    //         <Button
-    //           transparent
-    //           onPress={() => {
-    //             SetVisible(!visible);
-    //           }}>
-    //           <Icon name="search" />
-    //         </Button>
-    //         </Right>
-    //       </Header>
-    //        ) : null}
-        
-    //     {visible ? (
-    //       <Header>
-    //         <Left>
-    //           <Button
-    //             transparent
-    //             onPress={() => {
-    //               SetVisible(!visible);
-    //             }}>
-    //             <Icon name="arrow-back" />
-    //           </Button>
-    //         </Left>
-    //         <Body>
-    //           <View>
-    //             <Input
-    //               placeholder="Search..."
-    //               autoFocus
-    //               onChangeText={(term) => {
-    //                 searchUpdated(term);
-    //               }}
-    //               placeholderTextColor="grey"
-    //               style={{width: windowWidth - 100}}
-    //             />
-    //           </View>
-    //         </Body>
-    //         <Right />
-    //       </Header>
-    //     ) : null}
-     
-    //       <Tabs renderTabBar={() => <ScrollableTab />} >
-    //       <Tab
-    //       index={0}
-    //         heading={
-    //           <TabHeading >
-    //              <Text style={{color:'white', fontSize:12}}>ACTIVE</Text>
-    //         {/* <Badge style={{bottom: windowHeight / 60}}>{data.filter((item) => item.activeConsultants !== 0).length}</Badge> */}
-    //             </TabHeading>
-    //         }>
-    //        <ClientList
-    //        {...props}
-    //        searchTerm={searchTerm}
-    //       info={data.filter((item) => item.activeConsultants !== 0)}
-    //     />
-    //       </Tab>
-    //       <Tab
-    //       index={1}
-    //         heading={
-    //           <TabHeading>
-    //             <Text style={{color:'white', fontSize:12}}>IN-ACTIVE</Text>
-    //             {/* <Badge style={{bottom: windowHeight / 60}}>{data.filter((item) => item.activeConsultants === 0).length}</Badge> */}
-    //           </TabHeading>
-    //         }>
-    //         <ClientList
-    //         {...props}
-    //         searchTerm={searchTerm}
-    //       info={data.filter((item) => item.activeConsultants === 0)}
-    //     />
-    //       </Tab>
-    //       <Tab
-    //       index={2}
-    //         heading={
-    //         <TabHeading>
-    //           <Text style={{color:'white', fontSize:12}}>ALL</Text>
-    //           {/* <Badge style={{bottom: windowHeight / 60}}>{data.length}</Badge> */}
-    //         </TabHeading>
-    //         }>
-    //        <ClientList  searchTerm={searchTerm} {...props} info={data} />
-    //       </Tab>
-         
-    //     </Tabs>
-        
-    // </Container>
+   
+  
+
+  
     <Container>
        {!visible ? (
-      <Header>
+      <Header style={styles.Header}>
           <Left>
             <Button transparent>
               <Icon
+              style={styles.HeaderIcons}
                 name="arrow-back"
                 onPress={() => {
                   props.navigation.goBack();
@@ -150,7 +57,7 @@ export default function TabsView(props) {
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>Clients</Title>
+            <Title style={styles.HeaderTitle}>Clients</Title>
           </Body>
           <Right>
             <Button
@@ -158,45 +65,45 @@ export default function TabsView(props) {
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" />
+              <Icon name="search" style={styles.HeaderIcons}/>
             </Button>
             </Right>
           </Header>
-           ) : null}
-        
-        {visible ? (
-          <Header>
-            <Left>
-              <Button
-                transparent
-                onPress={() => {
-                  SetVisible(!visible);
-                }}>
-                <Icon name="arrow-back" />
-              </Button>
-            </Left>
-            <Body>
-              <View>
-                <Input
-                  placeholder="Search..."
-                  autoFocus
-                  onChangeText={(term) => {
-                    searchUpdated(term);
-                  }}
-                  placeholderTextColor="grey"
-                  style={{width: windowWidth - 100}}
-                />
-              </View>
-            </Body>
-            <Right />
-          </Header>
-        ) : null}
+           ) : 
+           <Header style={styles.Header}>
+           <Left>
+             <Button
+               transparent
+               onPress={() => {
+                 SetVisible(!visible);
+               }}>
+               <Icon name="arrow-back" style={styles.HeaderIcons} />
+             </Button>
+           </Left>
+           <Body>
+             <View>
+               <Input
+                 placeholder="Search..."
+                 autoFocus
+                 onChangeText={(term) => {
+                   searchUpdated(term);
+                 }}
+                 placeholderTextColor="grey"
+                 style={{width: windowWidth - 100}}
+               />
+             </View>
+           </Body>
+           <Right />
+         </Header>
+           }
+
      
-          <Tabs renderTabBar={() => <ScrollableTab />} >
+          <Tabs renderTabBar={() => <ScrollableTab  style={{backgroundColor:'#3f51b5'}}/>} >
           <Tab
           index={0}
+          
             heading={
-              <TabHeading><Text style={{color:'white', fontSize:12}}>ACTIVE</Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}><Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>ACTIVE</Text>
                 </TabHeading>
             }>
           <ClientList  searchTerm={searchTerm} {...props} info={data.filter((item) => item.activeConsultants !== 0)}/>
@@ -204,8 +111,8 @@ export default function TabsView(props) {
           <Tab
           index={1}
             heading={
-              <TabHeading>
-                <Text style={{color:'white', fontSize:12}}>IN-ACTIVE</Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}> 
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>IN-ACTIVE</Text>
                {/* <Badge style={{bottom:15}}>{approvedRanges}</Badge> */}
               </TabHeading>
             }>
@@ -214,8 +121,8 @@ export default function TabsView(props) {
           <Tab
           index={2}
             heading={
-              <TabHeading>
-                <Text style={{color:'white', fontSize:12}}>ALL</Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}> 
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>ALL</Text>
                 {/* <Badge style={{bottom:15}}>{rejectedRanges}</Badge> */}
               </TabHeading>
             }>
@@ -223,6 +130,26 @@ export default function TabsView(props) {
           </Tab>
           
             </Tabs>
+           
     </Container>
   )
 }
+const styles = StyleSheet.create({
+  HeaderTitle: {
+    fontSize: 20,
+    color: '#fff'
+  },
+  HeaderIcons: {
+    color: '#fff'
+  },
+  Header: {
+    backgroundColor: '#3f51b5'
+  },
+  CardStyles: {
+    elevation: 0, borderRadius: 16, width: '96%', alignSelf: 'center'
+  },
+  CardTitle: {
+    color: '#62B1F6', fontSize: 16, fontWeight: '400', paddingBottom: 5, paddingTop: 5, right: 66
+  }
+
+})

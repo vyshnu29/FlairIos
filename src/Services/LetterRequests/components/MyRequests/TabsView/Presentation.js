@@ -1,5 +1,6 @@
 import React from "react"
 import LetterRequestTable from "../LetterRequestTable"
+import styles from '../../../styles/RequestList'
 import {
   Badge,
   Title,
@@ -50,11 +51,12 @@ export default function TabsView(props) {
   return (
     <View style={{flex:1}}>
        {!visible ? (
-      <Header>
+      <Header style={styles.Header}>
           <Left>
             <Button transparent>
-              <Icon
-                name="arrow-back"
+              <Icon 
+              style={styles.HeaderIcons}
+                name="chevron-back"
                 onPress={() => {
                   props.navigation.goBack();
                 }}
@@ -62,7 +64,7 @@ export default function TabsView(props) {
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>{text}</Title>
+            <Title style={styles.HeaderTitle}>{text}</Title>
           </Body>
           <Right>
             <Button
@@ -70,21 +72,21 @@ export default function TabsView(props) {
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" />
+              <Icon name="search" style={styles.HeaderIcons}/>
             </Button>
             </Right>
           </Header>
            ) : null}
         
         {visible ? (
-          <Header>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   SetVisible(!visible);
                 }}>
-                <Icon name="arrow-back" />
+                <Icon name="chevron-back" style={styles.HeaderIcons}/>
               </Button>
             </Left>
             <Body>
@@ -107,8 +109,8 @@ export default function TabsView(props) {
           <Tab
           index={0}
             heading={
-              <TabHeading >
-                <Text>ALL  </Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>ALL  </Text>
                 {/* <Badge style={{bottom:15}}>{trackLetterRequestsSubmissions.all}</Badge> */}
                 </TabHeading>
             }>
@@ -117,7 +119,7 @@ export default function TabsView(props) {
           <Tab
           index={1}
             heading={
-              <TabHeading><Text>PENDING  </Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}><Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>PENDING  </Text>
               {/* <Badge style={{bottom:15}}>{trackLetterRequestsSubmissions.pending}</Badge> */}
               </TabHeading>
             }>
@@ -126,7 +128,7 @@ export default function TabsView(props) {
           <Tab
           index={2}
             heading={
-            <TabHeading><Text>REJECTED </Text>
+            <TabHeading style={{backgroundColor:'#3f51b5'}}><Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>REJECTED </Text>
             {/* <Badge style={{bottom:15}}>{trackLetterRequestsSubmissions.pending}</Badge> */}
             </TabHeading>
             }>
@@ -135,8 +137,8 @@ export default function TabsView(props) {
           <Tab
           index={3}
             heading={
-              <TabHeading>
-                <Text>ISSUED  </Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}> ISSUED  </Text>
                 {/* <Badge style={{bottom:15}}>{trackLetterRequestsSubmissions.approved}</Badge> */}
               </TabHeading>
             }>

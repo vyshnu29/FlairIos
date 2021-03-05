@@ -22,6 +22,7 @@ import {
 import {
   View,
   TouchableOpacity,
+  StyleSheet,
   Dimensions
 } from 'react-native';
 import TimesheetTable from "../TimesheetTable"
@@ -38,11 +39,12 @@ export default function TabsView(props) {
   return (
     <Container>
       {!visible ? (
-      <Header>
+      <Header style={styles.Header}>
           <Left>
             <Button transparent>
               <Icon
                 name="arrow-back"
+                style={styles.HeaderIcons}
                 onPress={() => {
                   props.navigation.goBack();
                 }}
@@ -50,7 +52,7 @@ export default function TabsView(props) {
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>Timesheets</Title>
+            <Title style={styles.HeaderTitle}>Timesheets</Title>
           </Body>
           <Right>
             <Button
@@ -58,21 +60,21 @@ export default function TabsView(props) {
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" />
+              <Icon name="search" style={styles.HeaderIcons}/>
             </Button>
             </Right>
           </Header>
            ) : null}
         
         {visible ? (
-          <Header>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   SetVisible(!visible);
                 }}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={styles.HeaderIcons}/>
               </Button>
             </Left>
             <Body>
@@ -95,8 +97,8 @@ export default function TabsView(props) {
           <Tab
           index={0}
             heading={
-              <TabHeading >
-                <Text>Submitted  </Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Submitted  </Text>
                 {/* <Badge style={{bottom:15}}>{pendingRanges}</Badge> */}
                 </TabHeading>
             }>
@@ -105,7 +107,7 @@ export default function TabsView(props) {
           <Tab
           index={1}
             heading={
-              <TabHeading><Text>Approved  </Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}><Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Approved  </Text>
               {/* <Badge style={{bottom:15}}>{approvedRanges}</Badge> */}
               </TabHeading>
             }>
@@ -114,7 +116,7 @@ export default function TabsView(props) {
           <Tab
           index={2}
             heading={
-            <TabHeading><Text>Defaulters </Text>
+            <TabHeading style={{backgroundColor:'#3f51b5'}}><Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Defaulters </Text>
             {/* <Badge style={{bottom:15}}>{defaulterRanges}</Badge> */}
             </TabHeading>
             }>
@@ -123,8 +125,8 @@ export default function TabsView(props) {
           <Tab
           index={3}
             heading={
-              <TabHeading>
-                <Text>Rejected </Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Rejected </Text>
                 {/* <Badge style={{bottom:15}}>{rejectedRanges}</Badge> */}
               </TabHeading>
             }>
@@ -135,3 +137,23 @@ export default function TabsView(props) {
     </Container>
   )
 }
+
+const styles = StyleSheet.create({
+  HeaderTitle: {
+    fontSize: 20,
+    color: '#fff'
+  },
+  HeaderIcons: {
+    color: '#fff'
+  },
+  Header: {
+    backgroundColor: '#3f51b5'
+  },
+  CardStyles: {
+    elevation: 0, borderRadius: 16, width: '96%', alignSelf: 'center'
+  },
+  CardTitle: {
+    color: '#62B1F6', fontSize: 16, fontWeight: '400', paddingBottom: 5, paddingTop: 5, right: 66
+  }
+
+})

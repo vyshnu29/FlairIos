@@ -25,6 +25,7 @@ import TasksHandler from '../../Services/TaskManagement/components/Tasks/TaskHan
 import ProjectDetails from '../../Services/TaskManagement/components/ProjectHandleComponents/UpdateProject/index'
 import ClientList from '../../Services/Clients/components/ClientSort/index'
 import ViewClient from '../../Services/Clients/components/ViewClient/Index/index'
+import AddNewClient from '../../Services/Clients/components/NewClient/Index/index'
 import Placements from '../../screens/PlacementsScreen'
 import PlacementsView from '../../screens/PlacementsViewScreen'
 import TimeSheets from '../../screens/TimeSheets'
@@ -71,6 +72,7 @@ function StackScreens(props) {
           <Stack.Screen name="TaskTimeLine"  component={TaskTimeLine}/>
           <Stack.Screen name="ClientList"  component={ClientList}/>
           <Stack.Screen name="ViewClient"  component={ViewClient}/>
+          <Stack.Screen name='AddNewClient' component={AddNewClient}/>
           <Stack.Screen name="Placements"  component={Placements}/>
           <Stack.Screen name="PlacementsView"  component={PlacementsView}/>
           <Stack.Screen name="TimeSheets"  component={TimeSheets}/>

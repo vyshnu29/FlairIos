@@ -8,10 +8,12 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import styles from '../../../styles/PlacementTableStyles';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {
   Container,
   Header,
+  Card,
   Badge,
   List,
   ListItem,
@@ -149,18 +151,18 @@ function Presentation(props) {
     return (
       <Container>
         {!clientView && !visible ? (
-          <Header>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   props.navigation.goBack();
                 }}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={styles.HeaderIcons}/>
               </Button>
             </Left>
             <Body>
-              <Title style={{color: 'white'}}>Placements</Title>
+              <Title style={styles.HeaderTitle}>Placements</Title>
             </Body>
             <Right>
             <Button
@@ -168,7 +170,7 @@ function Presentation(props) {
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" />
+              <Icon name="search" style={styles.HeaderIcons}/>
             </Button>
           </Right>
           </Header>
@@ -177,14 +179,14 @@ function Presentation(props) {
 
       <View>
         { visible ? (
-          <Header>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   SetVisible(!visible);
                 }}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={styles.HeaderIcons}/>
               </Button>
             </Left>
             <Body>
@@ -204,90 +206,90 @@ function Presentation(props) {
           </Header>
         ) : null}
       </View>
-
-        <FlatList
-          data={filteredEmails}
-          keyExtractor={(item) => item.clientId}
-          renderItem={({item}) => {
-            console.log('aa', item.clientId);
-            return (
-              <List>
-                <ListItem>
-                  <Body>
-                    <TouchableOpacity>
-                      <Title
-                        style={{color: '#3F51B5', fontSize: 14}}
-                        mode="text">
-                        {item.name.toUpperCase()}
-                      </Title>
+      <FlatList
+      bounces={false}
+        data={filteredEmails}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({item}) => {
+          console.log("sS",item.startDate)
+          return (
+            <Card style={styles.container} noShadow>
+            <TouchableOpacity
+              onPress={() => {
+                props.navigation.navigate('PlacementsView', {
+                  id: item.empCode,
+                  docId: item.id,
+                });
+              }}
+              activeOpacity={0.95}> 
+              <View style={styles.labelContainer}>
+              <View style={styles.mainTextContainer}>
+                  <Text  style={{
+                            color: '#62B1F6',
+                            fontSize: 17,
+                            fontWeight: '400',
+                            bottom: 5,
+                          }}>{item.name}</Text>
+                </View>
+                <>
+                {item.status === 0 ? (
+                  <View style={{borderRadius: 16, backgroundColor: '#21ba45'}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.navigation.navigate('PlacementsView', {
+                          id: item.empCode,
+                          docId: item.id,
+                        });
+                      }}>
+                      <Text style={styles.labelText1}>
+                        {item.placementID.toString()}
+                      </Text>
                     </TouchableOpacity>
-
-                    <View style={{flexDirection: 'row'}}>
-                      <View style={{flexDirection: 'column'}}>
-                        <Text>Consultant type</Text>
-                        <Text>Job Title</Text>
-                        <Text>Placement code</Text>
-                        {!clientView ? <Text>Client</Text> : null}
-                        <Text>Start Date</Text>
-                        <Text>End Date</Text>
-                        <Text>Status</Text>
-                        <Text>PO Number</Text>
-                        <Text>PO Document</Text>
-                      </View>
-                     
-                      <View style={{flexDirection: 'column'}}>
-                       <Text style={{left:10 , color:'#7d7d7d'}}>{ConsultType(item.category)}</Text>
-                       <Text style={{left:10 , color:'#7d7d7d'}}>{item.jobTitle}</Text>
-                        <TouchableOpacity
-                            onPress={() => {
-                              props.navigation.navigate('PlacementsView', {
-                                id: item.empCode, docId:item.id
-                              });
-                            }}>
-                        <Text style={{color: '#21BA45',left:10}}>
-                          {item.placementID.toString()}
-                        </Text>
-                        </TouchableOpacity>
-                        {!clientView ? (
-                          <TouchableOpacity
-                            onPress={() => {
-                              props.navigation.navigate('ViewClient', {
-                                clientId: item.clientId,
-                              });
-                            }}>
-                            <Text style={{color: '#62B1F6',left:10}}>
-                              {item.clientName}
-                            </Text>
-                          </TouchableOpacity>
-                        ) : null}
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.startDate}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.endDate}</Text>
-                        {item.status === 0 ? (
-                          <Text style={{color: '#21BA45',left:10}}>Active</Text>
-                        ) : (
-                          <Text style={{color: '#f0ad4e',left:10}}>Inactive</Text>
-                        )}
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.poNumber}</Text>
-                        {item.poDoc.map((obj) => {
-                          return (
-                            <TouchableOpacity
-                              onPress={() => {
-                                Linking.openURL(obj.work_doc.url);
-                              }}>
-                              <Text style={{color: '#62B1F6',left:10}}>
-                                {obj.work_doc.name.substr(0, 20)}
-                              </Text>
-                            </TouchableOpacity>
-                          );
-                        })}
-                      </View>
-                    </View>
-                  </Body>
-                </ListItem>
-              </List>
-            );
-          }}
-        />
+                  </View>
+                ) : (
+                  <View style={{borderRadius: 16, backgroundColor: '#f0ad4e'}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.navigation.navigate('PlacementsView', {
+                          id: item.empCode,
+                          docId: item.id,
+                        });
+                      }}>
+                      <Text style={styles.labelText1}>
+                        {item.placementID.toString()}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+                </>
+                
+              </View>
+              <View style={styles.authorWrapper}>
+                <TouchableOpacity
+                  style={styles.authorContainer}
+                  onPress={() => {
+                    props.navigation.navigate('PlacementsView', {
+                      id: item.empCode,
+                      docId: item.id,
+                    });
+                  }}>
+                  <View style={styles.footerContainer}>
+                  <Text style={styles.authorName1}>
+                  {item.jobTitle}
+                    </Text>
+                    <Text style={styles.authorName}>
+                      {item.startDate + '   |   ' + item.projectEndDate}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.authorBlankContainer} />
+              </View>
+            </TouchableOpacity>
+</Card>
+     
+          );
+        }}
+      />
       </Container>
     );
   return <Spinner visible={true} />;

@@ -8,14 +8,18 @@ import {
   View,
   FlatList,
   RefreshControl,
+  Linking,
   TouchableOpacity, Text
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail } from 'native-base';
+import { Container, Header, Card,Content, List, ListItem, Left, Body, Right, Thumbnail } from 'native-base';
 import validation from "../../../../../shared/validation"
 import MetaInfo from "../../../../../shared/getMetaInfo"
 import { TimesheetsUTILS } from "../../../../../shared/JSutils";
 import {createFilter} from 'react-native-search-filter';
+import Clock from 'react-native-vector-icons/Feather';
+import Date from 'react-native-vector-icons/Fontisto';
+import styles from '../../../styles/entryTable';
 
 function Presentation(props) {
   const { timesheets, loggedInEmployee, state, condition ,isLoaded ,searchTerm } = props;
@@ -109,41 +113,76 @@ if(!state.isFetchingTimesheets || !state.isSettingsLoading)
       }}
       renderItem={({item}) => {
         return (
-            <List>
-              <ListItem avatar>
-                <Body>
-                  <TouchableOpacity>
-                    <Title
-                      style={{color: '#3F51B5', fontSize: 14}}
-                      mode="text">
-                      {item.name.toUpperCase()}
-                    </Title>
-                  </TouchableOpacity>
-
-                  <View style={{flexDirection: 'row'}}>
-                    <View style={{flexDirection: 'column'}}>
-                      <Text>Client Name</Text>
-                      <Text>Duration</Text>
-                      <Text>Status</Text>
-                      <Text>Submitted on</Text>
-                      <Text>Hrs</Text>
-                      <Text>Total Billable Hrs</Text>
-                      {/* <Text>Attached File</Text> */}
-                    </View>
-                    
-                    <View style={{flexDirection: 'column'}}>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.clientName}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.duration}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.status}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.submittedOn}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.hours}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.totalBillableHours}</Text>
-                      {/* <Text>{item.customFileName}</Text> */}
-                    </View>
+          <View>
+          <Card style={styles.container} noShadow>
+            <View style={styles.labelContainer}>
+              <View style={styles.mainTextContainer}>
+                <View>
+                  <Title
+                    style={{
+                      color: '#62B1F6',
+                      fontSize: 17,
+                      fontWeight: '400',
+                      bottom: 5,
+                    }}>
+                    {metaInfo.toNameCase(item.name)}
+                  </Title>
+                </View>
+              </View>
+              <View
+                style={{
+                  borderRadius: 16,
+                  top: 10,
+                  backgroundColor:
+                    item.status === 'success'
+                      ? '#21ba45'
+                      : item.status === 'pending'
+                      ? '#f0ad4e'
+                      : item.status === 'rejected'
+                      ? '#d9534f'
+                      : 'grey',
+                }}>
+                <View>
+                  <Text style={[styles.labelText1]}>{item.clientId}</Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                paddingTop: 10,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <View>
+                <View>
+                  <View>
+                    <Text style={styles.authorName}>
+                      <Date name="date" color="#62B1F6" size={15}/>{' '} {item.duration}
+                    </Text>
                   </View>
-                </Body>
-              </ListItem>
-            </List>
+                </View>
+                <View>
+                  <View style={{paddingTop: 5}}>
+                    <Text style={styles.authorName}>
+                      <Clock name="clock" color="#62B1F6" size={15} />{' '} {item.hours}{' '}
+                      / {item.totalBillableHours} hrs
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <View style={{paddingTop: 5}}>
+                    <Text style={styles.authorName}>
+                      Submitted on : {item.submittedOn}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <TouchableOpacity style={{top:35,right:6}} onPress={() => {Linking.openURL(item.attachedFile)}}>
+                <Clock name='file-text' size={20} color="#62B1F6"  />
+              </TouchableOpacity>
+            </View>
+          </Card>
+        </View>
          
         );
       }}

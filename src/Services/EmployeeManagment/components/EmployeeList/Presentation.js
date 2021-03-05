@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {createFilter} from 'react-native-search-filter';
-import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail,Button} from 'native-base';
+import { Container, Header, Card, List, ListItem, Left, Body, Right, Thumbnail,Button} from 'native-base';
 import MetaInfo from "../../../../shared/getMetaInfo"
 
 
@@ -149,8 +149,8 @@ if(!isLoading)
       renderItem={({item}) => {
         console.log("Ss",item.image)
         return (
+          <Card   style={styles.container} noShadow>
           <TouchableOpacity
-          style={styles.container}
           activeOpacity={0.95}
         >
           <View style={styles.mainTextContainer}>
@@ -158,83 +158,36 @@ if(!isLoading)
               item.image ?
               <Avatar.Image
               size={45}
+              style={{top:10}}
                     source={{uri: item.image}}
                   />: <Avatar.Text
                   size={45}
+                  style={{top:10}}
                   label={item.name[0]}
                   style={{backgroundColor: "#2970ff"}}
                 />
             } 
-            <Text style={{fontSize:16,marginLeft:15}}>{item.name}</Text>
-          </View>
-          <View style={styles.footerContainer}>
+           
+           <View style={{alignSelf:'center',marginLeft:25}}>
+           <TouchableOpacity onPress={() => {props.navigation.navigate('EmployeeProfileMenu',{ID:item.employeeid})}}>
+            <Text  style={{
+                            color: '#62B1F6',
+                            fontSize: 17,
+                            fontWeight: '400',
+                            bottom: 5,
+                          }}>{item.name}</Text>
+                          </TouchableOpacity>
           <TouchableOpacity  onPress={() => {makeCall(item.phone)}}>
-          <Text style={styles.authorName}>{item.phone + '   |   '}</Text>
+          <Text style={{color:'grey',fontSize:13,paddingTop:7}}>{item.phone}</Text>
           </TouchableOpacity>
           <TouchableOpacity  onPress={() => Linking.openURL('mailto:' + item.email) }>
-          <Text style={{color:"#2970ff",fontSize:12}}>{item.email.trim()}</Text>
+          <Text style={{color:"grey",fontSize:12}}>{item.email.trim()}</Text>
           </TouchableOpacity>
         </View>
-        </TouchableOpacity>
-        //     <List>
-        //       <ListItem avatar>
-        //         {/* <Left>
-        //           <Avatar.Text
-        //             size={55}
-        //             label={item.name[0].toUpperCase() ? item.name[0].toUpperCase() : '!'}
-        //             style={{backgroundColor: '#c42053'}}
-        //           />
-        //         </Left> */}
-        //         <Body>
-        //           <TouchableOpacity >
-        //           <Title
-        //                   style={{color: '#3F51B5', fontSize: 14}}
-        //                   mode="text">
-        //               {item.name ? item.name.toUpperCase() : 'Nan'}
-        //             </Title>
-        //           </TouchableOpacity>
-
-        //           <View style={{flexDirection: 'row'}}>
-        //             <View style={{flexDirection: 'column'}}>
-        //               <Text>Employee Id</Text>
-        //               <Text>Employee status</Text>
-        //               <Text>Branch</Text>
-        //               <Text>Status</Text>
-        //               <Text>Job Title</Text>
-        //               <Text>Department</Text>
-        //               <Text>Reporting Manager</Text>
-        //               <Text>Email</Text>
-        //               <Text>Phone</Text>
-        //             </View>
-        //             <View style={{flexDirection: 'column'}}>
-        //              <Text style={{left:10 , color:'#7d7d7d'}}>{item.employeeid ? item.employeeid : '-----' }</Text>
-        //              <Text style={{left:10 , color:'#7d7d7d'}}>{StatusType(item.employeestatus) ? StatusType(item.employeestatus) : '-----' }</Text>
-        //              <Text style={{left:10 , color:'#7d7d7d'}}>{BranchType(item.branch) ? BranchType(item.branch) : '-----' }</Text>
-        //              <Text style={{left:10 , color:'#7d7d7d'}}>{statusType(item.status) ? statusType(item.status) : '-----' }</Text>
-        //              <Text style={{left:10 , color:'#7d7d7d'}}>{item.jobtitle ? item.jobtitle : '-----' }</Text>
-        //              <Text style={{left:10 , color:'#7d7d7d'}}>{DepartmentType(item.department) ? DepartmentType(item.department) : '-----' }</Text>
-        //              <Text style={{left:10 , color:'#7d7d7d'}}>{item.reportingmanager ? item.reportingmanager : '-----' }</Text>
-        //               <TouchableOpacity   onPress={() => Linking.openURL('mailto:' + item.email) }>
-        //               <Text  style={{left:10 ,color: '#3F51B5'}}>{item.email ? item.email.trim().length > 15 ? item.email.trim().substring(0, 15) + "...." : item.email : '-----' }</Text>
-        //               </TouchableOpacity>
-        //               <TouchableOpacity  onPress={() => {makeCall(item.phone)}}>
-        //               <Text style={{left:10 ,color: '#3F51B5'}}>{item.phone ? item.phone : '-----' }</Text>
-        //               </TouchableOpacity>
-                     
-        //             </View>
-        //           </View>
-        //         </Body>
-        //         {/* <Right>
-        //         <TouchableRipple style={{marginTop:20}}   onPress={() => Linking.openURL('mailto:' + item.email) }>
-			  //  <Avatar.Icon size={34} icon="email" style={{backgroundColor:'#3F51B5'}}   />  
-			  //  </TouchableRipple>
-        //         <TouchableRipple  onPress={() => {makeCall(item.phone)}} style={{marginTop:10}}>
-				//    <Avatar.Icon size={34} icon="phone" style={{backgroundColor:'#3F51B5'}} />  
-				//    </TouchableRipple>
-        //         </Right> */}
-        //       </ListItem>
-        //     </List>
+          </View>
          
+        </TouchableOpacity>
+        </Card>
         );
       }}
     /> :
@@ -251,23 +204,14 @@ if(!isLoading)
 const styles = StyleSheet.create({
   container: {
     marginTop: 12,
-    width:'95%',
-    shadowColor: 'rgb(35,35,35)',
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowRadius: 40,
-    shadowOpacity: 0.08,
-   // width: '100%',
+    width:'98%',
+   elevation:0,
     backgroundColor: 'white',
-    borderRadius: 24,
+    borderRadius: 16,
     alignSelf:'center',
     paddingHorizontal: 20,
     paddingVertical: 16,
-    borderWidth: Platform.select({ ios: 0, android: 2 }),
-    borderColor: 'rgb(246,245,248)',
-  },
+    },
   labelContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -351,7 +295,7 @@ const styles = StyleSheet.create({
   authorName: {
     fontSize: 12,
     lineHeight: 16,
-    color: "#2970ff",
+    color: "grey",
     marginLeft:55
   },
   authorWrapper: {

@@ -125,7 +125,7 @@ export function deleteClient(id) {
   }
 }
 
-export function createClient(history) {
+export function createClient() {
   return (dispatch, getState) => {
     const newClient = getState().client.newClient
 
@@ -196,7 +196,6 @@ export function createClient(history) {
         stopWaitMsg()
         console.log(response)
         successMsg("Created Successfully")
-        history.push("/console/clientslist")
       })
       .catch((err) => {
         stopWaitMsg()

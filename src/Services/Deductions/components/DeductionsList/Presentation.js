@@ -9,13 +9,16 @@ import {
   Dimensions,
   FlatList,
   Text,
+  Linking,
   RefreshControl,
   TouchableOpacity,
 } from 'react-native';
 import SearchInput, {createFilter} from 'react-native-search-filter';
+import styles from '../../styles/table';
+import Clock from 'react-native-vector-icons/Feather';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { isLoaded } from "react-redux-firebase"
-import { Container, Header, Input, List, ListItem, Left, Body, Right, Thumbnail ,Button,Icon} from 'native-base';
+import { Container, Header,Card, Input, List, ListItem, Left, Body, Right, Thumbnail ,Button,Icon} from 'native-base';
 import validate from "../../../../shared/validation"
 import MetaInfo from "../../../../shared/getMetaInfo"
 
@@ -94,18 +97,18 @@ function Presentation(props) {
   return (
     <Container>
        {!visible ? (
-        <Header>
+        <Header style={styles.Header}>
           <Left>
             <Button
               transparent
               onPress={() => {
                 props.navigation.goBack();
               }}>
-              <Icon name="arrow-back" />
+              <Icon name="arrow-back" style={styles.HeaderIcons}/>
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>Deductions</Title>
+            <Title style={styles.HeaderTitle}>Deductions</Title>
           </Body>
           <Right>
             <Button
@@ -113,7 +116,7 @@ function Presentation(props) {
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" />
+              <Icon name="search" style={styles.HeaderIcons} />
             </Button>
           </Right>
         </Header>
@@ -121,19 +124,20 @@ function Presentation(props) {
 
       <View>
         {visible ? (
-          <Header>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   SetVisible(!visible);
                 }}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={styles.HeaderIcons}/>
               </Button>
             </Left>
             <Body>
               <View>
                 <Input
+
                   placeholder="Search..."
                   autoFocus
                   onChangeText={(term) => {
@@ -154,48 +158,83 @@ function Presentation(props) {
         data={filteredData}
         renderItem={({item}) => {
           return (
-              <List>
-                <ListItem avatar>
-                  <Left>
-                  <Thumbnail
-                    small
-                    source={{uri: item.imageURL}}
-                  />
-                  </Left>
-                  <Body>
-                    <TouchableOpacity>
-                      <Title
-                        style={{color: '#3F51B5', fontSize: 14}}
-                        mode="text">
-                        {item.employeeName.toUpperCase()}
-                      </Title>
-                    </TouchableOpacity>
-  
-                    <View style={{flexDirection: 'row'}}>
-                      <View style={{flexDirection: 'column'}}>
-                        <Text>Advance Type</Text>
-                        <Text>Given Date</Text>
-                        <Text>Deduction Effective from</Text>
-                        <Text>Deduct Per</Text>
-                        <Text>Cheque Number</Text>
-                        <Text>Remaining Balance</Text>
-                        <Text>Deduction Amount</Text>
-                        <Text>Advance</Text>
-                      </View>
-                      <View style={{flexDirection: 'column'}}>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{AdvanceType(item.advanceType)}</Text>
-                         <Text style={{left:10 , color:'#7d7d7d'}}>{item.givendate}</Text>
-                         <Text style={{left:10 , color:'#7d7d7d'}}>{item.effectivefrom}</Text>
-                         <Text style={{left:10 , color:'#7d7d7d'}}>{DedType(item.deductPer)}</Text>
-                         <Text style={{left:10 , color:'#7d7d7d'}}>{item.chequeNumber}</Text>
-                         <Text style={{left:10 , color:'#7d7d7d'}}>{item.remainingBalance}</Text>
-                         <Text style={{left:10 , color:'#7d7d7d'}}>{item.amountTobeDeducted}</Text>
-                         <Text style={{left:10 , color:'#7d7d7d'}}>{item.advance}</Text>
-                      </View>
+            <View>
+            <Card style={styles.container}>
+              <View style={styles.labelContainer}>
+                <View style={styles.mainTextContainer}>
+                  <View>
+                    <Title
+                      style={{
+                        color: '#62B1F6',
+                        fontSize: 17,
+                        fontWeight: '400',
+                        bottom: 5,
+                      }}>
+                      {metaInfo.toNameCase(item.employeeName)}
+                    </Title>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    borderRadius: 16,
+                    top: 10,
+                    backgroundColor:'#f5f5f5',
+                  }}>
+                  <View>
+                    <Text style={[styles.labelText1]}>{item.chequeNumber}</Text>
+                  </View>
+                </View>
+              </View>
+              <View
+                style={{
+                  paddingTop: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View>
+                  <View>
+                    <View>
+                      <Text style={styles.authorName}>
+                        Given Date : {item.givendate}
+                      </Text>
                     </View>
-                  </Body>
-                </ListItem>
-              </List>
+                  </View>
+                  <View>
+                    <View style={{paddingTop: 5}}>
+                      <Text style={styles.authorName}>
+                        Effective From : {item.effectivefrom}
+                      </Text>
+                    </View>
+                  </View>
+                  {/* <View>
+                    <View style={{paddingTop: 5}}>
+                      <Text style={styles.authorName}>
+                      {AdvanceType(item.advanceType)}
+                      </Text>
+                    </View>
+                  </View> */}
+                </View>
+                <TouchableOpacity style={{top:5,right:6}} onPress={() => {Linking.openURL(item.url)}}>
+                  <Clock name='file-text' size={20} color="#62B1F6"  />
+                </TouchableOpacity>
+              </View>
+              <ListItem/>
+              <View style={{flexDirection:'row',justifyContent:'space-between',paddingTop:15}}>
+             <View>
+             <Text style={{fontSize:14,color:'#62b1f6'}}>{item.advance}</Text>
+             <Text style={{fontSize:10,fontWeight:'300',color:'grey',alignSelf:'center'}}>advance</Text>
+             </View>
+             <View>
+             <Text style={{fontSize:14,color:'#62b1f6'}}>{item.remainingBalance}</Text>
+             <Text style={{fontSize:10,fontWeight:'300',color:'grey',alignSelf:'center'}}>remaining</Text>
+             </View>
+             <View>
+             <Text style={{fontSize:14,color:'#62b1f6'}}>{item.amountTobeDeducted}</Text>
+             <Text style={{fontSize:10,fontWeight:'300',color:'grey',alignSelf:'center'}}>deduction</Text>
+             </View>
+           </View>
+            </Card>
+          </View>
            
           );
         }}

@@ -7,14 +7,15 @@ import validate from "../../../../../../shared/validation"
 function Container(props) {
   const { accounts, setAccountsInformation } = props
 
-  const handleChange = (event) => {
+  const handleChange = (name,value) => {
     setAccountsInformation({
-      name: event.target.name,
-      value: event.target.value,
+      name: name,
+      value: value,
     })
   }
 
   const handleAdd = (name, chip) => {
+    console.log("S",chip)
     let data = accounts[name]
     if (validate.checkEmail(chip)) {
       data = [...data, chip]
@@ -50,10 +51,10 @@ function Container(props) {
     })
   }
 
-  const handleDiscountDetails = (event, index) => {
+  const handleDiscountDetails = (name,value) => {
     let discountDetails = accounts.discountDetails
-    if (index <= discountDetails.length - 1) {
-      discountDetails[index][event.target.name] = event.target.value
+    if (0 <= discountDetails.length - 1) {
+      discountDetails[0][name] = value
     }
     setAccountsInformation({
       name: "discountDetails",
@@ -87,7 +88,6 @@ function Container(props) {
   }
 
   return (
-    <div>
       <Presentation
         accounts={accounts}
         handleChange={handleChange}
@@ -97,7 +97,6 @@ function Container(props) {
         onRemoveDiscount={onRemoveDiscount}
         handleDiscountDetails={handleDiscountDetails}
       />
-    </div>
   )
 }
 

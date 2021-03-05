@@ -23,6 +23,7 @@ import {
 import {
   View,
   Text,
+  StyleSheet,
   TouchableOpacity,
   Dimensions
 } from 'react-native';
@@ -39,10 +40,11 @@ export default function TabsView(props) {
   return (
     <Container>
        {!visible ? (
-      <Header>
+      <Header style={styles.Header}>
           <Left>
             <Button transparent>
               <Icon
+              style={styles.HeaderIcons}
                 name="arrow-back"
                 onPress={() => {
                   props.navigation.goBack();
@@ -51,7 +53,7 @@ export default function TabsView(props) {
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>Expenses</Title>
+            <Title style={styles.HeaderTitle}>Expenses</Title>
           </Body>
           <Right>
             <Button
@@ -59,21 +61,21 @@ export default function TabsView(props) {
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" />
+              <Icon name="search" style={styles.HeaderIcons}/>
             </Button>
             </Right>
           </Header>
            ) : null}
         
         {visible ? (
-          <Header>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   SetVisible(!visible);
                 }}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={styles.HeaderIcons}/>
               </Button>
             </Left>
             <Body>
@@ -97,8 +99,8 @@ export default function TabsView(props) {
           <Tab
           index={0}
             heading={
-              <TabHeading >
-                <Text style={{color:'white', fontSize:12}}>SUBMITTED</Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>SUBMITTED</Text>
                 {/* <Badge style={{bottom:15}}>{pendingRanges}</Badge> */}
                 </TabHeading>
             }>
@@ -107,8 +109,8 @@ export default function TabsView(props) {
           <Tab
           index={1}
             heading={
-              <TabHeading>
-                <Text style={{color:'white', fontSize:12}}>APPROVED</Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>APPROVED</Text>
                {/* <Badge style={{bottom:15}}>{approvedRanges}</Badge> */}
               </TabHeading>
             }>
@@ -117,8 +119,8 @@ export default function TabsView(props) {
           <Tab
           index={2}
             heading={
-              <TabHeading>
-                <Text style={{color:'white', fontSize:12}}>REJECTED</Text>
+              <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>REJECTED</Text>
                 {/* <Badge style={{bottom:15}}>{rejectedRanges}</Badge> */}
               </TabHeading>
             }>
@@ -130,8 +132,8 @@ export default function TabsView(props) {
             <Tab
             index={3}
               heading={
-                <TabHeading>
-                  <Text style={{color:'white', fontSize:12}}>MY-EXPENSES</Text>
+                <TabHeading style={{backgroundColor:'#3f51b5'}}>
+                  <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>MY-EXPENSES</Text>
                   {/* <Badge style={{bottom:15}}>{myCount}</Badge> */}
                 </TabHeading>
               }>
@@ -142,3 +144,23 @@ export default function TabsView(props) {
     </Container>
   )
 }
+
+const styles = StyleSheet.create({
+  HeaderTitle: {
+    fontSize: 20,
+    color: '#fff'
+  },
+  HeaderIcons: {
+    color: '#fff'
+  },
+  Header: {
+    backgroundColor: '#3f51b5'
+  },
+  CardStyles: {
+    elevation: 0, borderRadius: 16, width: '96%', alignSelf: 'center'
+  },
+  CardTitle: {
+    color: '#62B1F6', fontSize: 16, fontWeight: '400', paddingBottom: 5, paddingTop: 5, right: 66
+  }
+
+})

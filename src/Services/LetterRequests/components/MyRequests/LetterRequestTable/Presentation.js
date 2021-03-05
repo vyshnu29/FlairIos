@@ -12,8 +12,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import styles from '../../../styles/RequestList';
 import {createFilter} from 'react-native-search-filter';
-import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail } from 'native-base';
+import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail,Card } from 'native-base';
 import Validation from "../../../../../shared/getMetaInfo"
 import { configuration } from "../../../../../config/companyConfig"
 import HTMLView from 'react-native-htmlview';
@@ -111,52 +112,50 @@ function Presentation(props) {
         console.log('ppo',item)
         return (
         
-            <List>
-              <ListItem avatar>
-                {/* <Left>
-                  <Avatar.Text
-                    size={55}
-                    label={item.clientname[0].toUpperCase()}
-                    style={{backgroundColor: '#c42053'}}
-                  />
-                </Left> */}
-                <Body>
-                <TouchableOpacity>
-                  {
-                    
-                  ConsultType(item)
-                  
-                  }
-                      
-                    </TouchableOpacity>
-
-                  <View style={{flexDirection: 'row'}}>
-                    <View style={{flexDirection: 'column'}}>
-                      <Text>Employee</Text>
-                      <Text>Subject</Text>
-                      <Text>Description</Text>
-                      <Text>Timestamp</Text>
-                      <Text>Issued By/Rejected By</Text>
-                      <Text>Status</Text>
-                    
-                    </View>
-                   
-                    <View style={{flexDirection: 'column'}}>
+          <TouchableOpacity>
+          <Card style={styles.container} noShadow>
+            
+            <View style={styles.labelContainer}>
+              <View style={styles.mainTextContainer}>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.navigation.navigate('EmployeeProfileMenu', {
+                      ID: item.uid,
+                    });
+                  }}>
+                  <Title
+                    style={{
+                      color: '#62B1F6',
+                      fontSize: 16,
+                      fontWeight: '400',
+                      bottom: 5,
+                    }}>
+                    {validate.toNameCase(item.employeename)}
+                  </Title>
+                </TouchableOpacity>
+              </View>
+              <>
+                <TouchableOpacity>{ConsultType(item)}</TouchableOpacity>
+              </>
+            </View>
+            <View>
+              <TouchableOpacity>
+                <View style={styles.footerContainer}>
+                  <Text style={styles.authorName1}>{item.subject}</Text>
+                  <Text style={styles.authorName}>
+                    {item.issuedBy
+                      ? item.issuedBy
+                      : '---' + '   |   ' + item.timestamp}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.authorBlankContainer} />
+            </View>
+          </Card>
+        </TouchableOpacity>
+               
           
-                      <Text style={{left:10 , color: '#62B1F6'}}>{item.employeename}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.subject}</Text>
-                      <HTMLView value={item.description} style={{left:10 , color:'#7d7d7d'}} />
-                       <Text style={{left:10 , color:'#7d7d7d'}}>{item.timestamp}</Text>
-                       <Text style={{left:10 , color:'#7d7d7d'}}>{item.issuedBy ? item.issuedBy : '---'}</Text>
-                       <Text style={{left:10 , color:'#7d7d7d'}}>{item.status}</Text>
-                     
-
-                    </View>
-                  </View>
-                </Body>
-              </ListItem>
-            </List>
-         
+                 
         );
       }}
     />

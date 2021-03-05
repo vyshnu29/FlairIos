@@ -18,12 +18,12 @@ function Container(props) {
   })
 
   useEffect(() => {
-    Object.entries(item).forEach(([key, value]) => {
-      setState((prevState) => ({
-        ...prevState,
-        [key]: value,
-      }))
-    })
+    // Object.entries(item).forEach(([key, value]) => {
+    //   setState((prevState) => ({
+    //     ...prevState,
+    //     [key]: value,
+    //   }))
+    // })
     make_API_Call("get", "/loadcountries")
       .then((data) => {
         handleKeyValuePair("countries", data)
@@ -37,13 +37,13 @@ function Container(props) {
     e.preventDefault()
     let payload = {
       ...state,
-      key: index,
-      id: index,
+      key: 0,
+      id: 0,
       isDraft: false,
     }
 
     let data = locationsList
-    data[index] = payload
+    data[0] = payload
 
     setLocationsInformation({ locationsList: data })
   }
@@ -63,15 +63,14 @@ function Container(props) {
     })
   }
 
-  const handleChange = (event) => {
+  const handleChange = (name,value) => {
     setState({
       ...state,
-      [event.target.name]: event.target.value,
+      [name]: value,
     })
   }
 
   return (
-    <div>
       <Presentation
         location={state}
         index={index}
@@ -79,7 +78,6 @@ function Container(props) {
         onSubmit={onSubmit}
         handleKeyValuePair={handleKeyValuePair}
       />
-    </div>
   )
 }
 

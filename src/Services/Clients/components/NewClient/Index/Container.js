@@ -2,11 +2,11 @@ import React, { useState } from "react"
 import { connect } from "react-redux"
 import Presentation from "./Presentation"
 import { createClient } from "../../../middleware"
-import { useHistory } from "react-router-dom"
+
 
 function Container(props) {
   const [activeStep, setActiveStep] = useState(0)
-  const history = useHistory()
+  
   
   const handleNext = () => {
     setActiveStep((prevStep) => prevStep + 1)
@@ -17,11 +17,10 @@ function Container(props) {
   }
 
   const handleFinish = () => {
-    props.createClient(history)
+    props.createClient()
   }
 
   return (
-    <div>
       <Presentation
         activeStep={activeStep}
         handleNext={handleNext}
@@ -29,7 +28,6 @@ function Container(props) {
         newClient={props.newClient}
         handleFinish={handleFinish}
       />
-    </div>
   )
 }
 

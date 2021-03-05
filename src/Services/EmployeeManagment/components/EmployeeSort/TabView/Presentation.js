@@ -22,6 +22,7 @@ import EmployeeSort from "../EmployeeSort/index"
 import {
   View,
   TouchableOpacity,
+  StyleSheet,
   Dimensions
 } from 'react-native';
 
@@ -37,12 +38,13 @@ export default function TabsView(props) {
   return (
     <>
    {!visible ? (
-      <Header style={{backgroundColor:"#3f51b5"}}> 
+      <Header style={styles.Header}> 
           <Left>
             <Button transparent>
               <Icon
+              style={styles.HeaderIcons}
                 name="chevron-back"
-                style={{color:'#fff'}}
+                style={styles.HeaderIcons}
                 onPress={() => {
                   props.navigation.goBack();
                 }}
@@ -50,7 +52,7 @@ export default function TabsView(props) {
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>EmployeesList</Title>
+            <Title style={styles.HeaderTitle}>EmployeesList</Title>
           </Body>
           <Right>
             <Button
@@ -58,21 +60,21 @@ export default function TabsView(props) {
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" style={{color:'#fff'}}/>
+              <Icon name="search" style={styles.HeaderIcons}/>
             </Button>
             </Right>
           </Header>
            ) : null}
         
         {visible ? (
-          <Header style={{backgroundColor:'#3f51b5'}}>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   SetVisible(!visible);
                 }}>
-                <Icon name="chevron-back" style={{color:'#fff'}}/>
+                <Icon name="chevron-back" style={styles.HeaderIcons}/>
               </Button>
             </Left>
             <Body>
@@ -96,8 +98,8 @@ export default function TabsView(props) {
         <Tab
         index={1}
           heading={
-            <TabHeading>
-              <Text>Active </Text>
+            <TabHeading style={{backgroundColor:'#3f51b5'}}>
+              <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Active </Text>
               </TabHeading>
           }>
          <EmployeeSort condition={1} searchTerm={searchTerm} {...props}/>
@@ -105,8 +107,8 @@ export default function TabsView(props) {
         <Tab
         index={0}
           heading={
-            <TabHeading > 
-             <Text>All  </Text>
+            <TabHeading style={{backgroundColor:'#3f51b5'}}> 
+             <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>All  </Text>
             </TabHeading>
           }>
           <EmployeeSort condition={0} searchTerm={searchTerm} {...props}/>
@@ -114,8 +116,8 @@ export default function TabsView(props) {
         <Tab
         index={2}
           heading={
-          <TabHeading >
-            <Text>In Active </Text>
+          <TabHeading style={{backgroundColor:'#3f51b5'}}>
+            <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>In Active </Text>
           </TabHeading>
           }>
          <EmployeeSort condition={2} searchTerm={searchTerm} {...props} />
@@ -123,8 +125,8 @@ export default function TabsView(props) {
         <Tab
         index={3}
           heading={
-            <TabHeading > 
-              <Text>Suspended  </Text>
+            <TabHeading style={{backgroundColor:'#3f51b5'}}> 
+              <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Suspended  </Text>
             </TabHeading>
           }>
          <EmployeeSort condition={3} searchTerm={searchTerm} {...props} />
@@ -143,3 +145,23 @@ export default function TabsView(props) {
   </>
   )
 }
+const styles = StyleSheet.create({
+  HeaderTitle: {
+    fontSize: 20,
+    color: '#fff'
+  },
+  HeaderIcons: {
+    color: '#fff'
+  },
+  Header: {
+    backgroundColor: '#3f51b5'
+  },
+  CardStyles: {
+    elevation: 0, borderRadius: 16, width: '96%', alignSelf: 'center'
+  },
+  CardTitle: {
+    color: '#62B1F6', fontSize: 16, fontWeight: '400', paddingBottom: 5, paddingTop: 5, right: 66
+  }
+
+})
+

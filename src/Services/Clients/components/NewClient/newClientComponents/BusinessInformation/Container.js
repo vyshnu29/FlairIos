@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react"
 import Presentation from "./Presentation"
 import { uploadBusinessInformation } from "../../../../middleware"
 import { connect } from "react-redux"
+//
 import make_API_Call from "../../../../../../providers/REST_API"
 import { uploadToStorage } from "../../../../../../shared/fileUploader"
 
 function Container(props) {
   const { businessInformation, setBusinessInformation } = props
-
   const [isUploading, setIsUploading] = useState(false)
 
   useEffect(() => {
@@ -21,10 +21,21 @@ function Container(props) {
   }, [])
 
   const handleFile = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0]
-      fileUpload(file)
-    }
+    FilePickerManager.showFilePicker(null, (response) => {
+      console.log('Response = ', response);
+     
+      if (response.didCancel) {
+        console.log('User cancelled file picker');
+      }
+      else if (response.error) {
+        console.log('FilePickerManager Error: ', response.error);
+      }
+      else {
+        fileUpload(response)
+      }
+     // console.log(response.uri)
+      
+    });
   }
 
   const fileUpload = async (file) => {
@@ -43,10 +54,11 @@ function Container(props) {
       })
   }
 
-  const handleChange = (event) => {
+  const handleChange = (key,value) => {
+    console.log("Sss",key,value)
     setBusinessInformation({
-      name: event.target.name,
-      value: event.target.value,
+      name: key,
+      value: value,
     })
   }
 
@@ -63,7 +75,7 @@ function Container(props) {
   }
 
   return (
-    <div>
+  
       <Presentation
         businessInformation={businessInformation}
         handleChange={handleChange}
@@ -71,7 +83,7 @@ function Container(props) {
         isUploading={isUploading}
         handleFile={handleFile}
       />
-    </div>
+
   )
 }
 

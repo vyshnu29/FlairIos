@@ -27,12 +27,12 @@ function Container(props) {
   })
 
   useEffect(() => {
-    Object.entries(item).forEach(([key, value]) => {
-      setState((prevState) => ({
-        ...prevState,
-        [key]: value,
-      }))
-    })
+    // Object.entries(item).forEach(([key, value]) => {
+    //   setState((prevState) => ({
+    //     ...prevState,
+    //     [key]: value,
+    //   }))
+    // })
      make_API_Call("get", "/loadcountries")
        .then((data) => {
          handleKeyValuePair("countries", data)
@@ -46,13 +46,13 @@ function Container(props) {
     e.preventDefault()
     let payload = {
       ...state,
-      key: index,
-      id: index,
+      key: 0,
+      id: 0,
       isDraft: false,
     }
 
     let data = contactsList
-    data[index] = payload
+    data[0] = payload
 
     setConatctsInformation({ contactsList: data })
   }
@@ -68,8 +68,8 @@ function Container(props) {
     })
   }
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
+  const handleChange = (name, value ) => {
+    console.log("Ss",name,value)
     setState((state) => {
       return {
         ...state,
@@ -79,7 +79,7 @@ function Container(props) {
   }
 
   return (
-    <div>
+
       <Presentation
         contact={state}
         index={index}
@@ -87,7 +87,6 @@ function Container(props) {
         onSubmit={onSubmit}
         handleKeyValuePair={handleKeyValuePair}
       />
-    </div>
   )
 }
 

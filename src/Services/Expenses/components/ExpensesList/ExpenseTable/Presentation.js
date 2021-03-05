@@ -15,7 +15,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail} from 'native-base';
+import Clock from 'react-native-vector-icons/FontAwesome';
+import styles from '../../../styles/Table'
+import { Container, Header, Card,Content, List, ListItem, Left, Body, Right, Thumbnail} from 'native-base';
 import validate from "../../../../../shared/validation"
 import MetaInfo from "../../../../../shared/getMetaInfo"
 import {createFilter} from 'react-native-search-filter';
@@ -81,53 +83,70 @@ if(!isLoading)
         data={filteredInfo}
         renderItem={({item}) => {
           return (
-              <List>
-                <ListItem avatar>
-                  <Left>
-                  <Thumbnail
-                    small
-                    source={{uri: item.imageURL}}
-                  />
-                  </Left>
-                  <Body>
-                    <TouchableOpacity>
-                      <Title
-                        style={{color: '#3F51B5', fontSize: 14}}
-                        mode="text">
-                        {item.name.toUpperCase()}
-                      </Title>
-                    </TouchableOpacity>
-  
-                    <View style={{flexDirection: 'row'}}>
-                      <View style={{flexDirection: 'column'}}>
-                        <Text>Employee Id</Text>
-                        <Text>Spent date</Text>
-                        <Text>Expense Type</Text>
-                        <Text>Amount</Text>
-                        <Text>Vendor</Text>
-                        <Text>Receipt</Text>
-                        <Text>Departure Date</Text>
-                        <Text>Return Date</Text>
-                        <Text>Expense Doc</Text>
-                      </View>
-                    
-                      <View style={{flexDirection: 'column'}}>
-                        <Text style={{left:10 ,color: '#62B1F6'}}>{item.empCode}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.spentDate}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.expenseType}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.amount}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.vendor}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.receipt}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.departureDate}</Text>
-                        <Text style={{left:10 , color:'#7d7d7d'}}>{item.returnDate}</Text>
-                        <TouchableOpacity   onPress={() => Linking.openURL(item.attachmentDetails.publicURL) }>
-                        <Text style={{left:10 ,color: '#62B1F6',textDecorationLine:'underline'}}>{item.attachmentName.trim(0,15).substring(0,15)}</Text>
-                        </TouchableOpacity>
-                      </View>
+            <TouchableOpacity onPress={() => {setv(!sv)}}>
+            <Card style={styles.container} noShadow>
+              <View style={styles.labelContainer}>
+                <View style={styles.mainTextContainer}>
+                  <View>
+                    <Title
+                      style={{
+                        color: '#62B1F6',
+                        fontSize: 17,
+                        fontWeight: '400',
+                        bottom: 5,
+                      }}>
+                      {metaInfo.toNameCase(item.name)}
+                    </Title>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    borderRadius: 16,
+                    top: 10,
+                    backgroundColor:'#f5f5f5',
+                  }}>
+                  <View>
+                    <Text style={[styles.labelText1]}>{item.expenseType}</Text>
+                  </View>
+                </View>
+              </View>
+              <View
+                style={{
+                  paddingTop: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View>
+                  <View>
+                    <View>
+                      <Text style={styles.authorName}>
+                      Spent Date : {item.spentDate}
+                      </Text>
                     </View>
-                  </Body>
-                </ListItem>
-              </List>
+                  </View>
+                  <View>
+                    <View style={{paddingTop: 5}}>
+                      <Text style={styles.authorName}>
+                      Departure Date : {item.departureDate}
+                      </Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View style={{paddingTop: 5}}>
+                      <Text style={styles.authorName}>
+                        Return Date : {item.returnDate}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <TouchableOpacity style={{top:26}} >
+                 <Text style={{color:"#62B1F6",fontSize:18}}><Clock name='dollar' size={16} color="#62B1F6"  /> {item.amount.substring(1)} </Text> 
+                </TouchableOpacity>
+              </View>
+       
+            </Card>
+          </TouchableOpacity>
+         
            
           );
         }}

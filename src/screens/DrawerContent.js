@@ -65,7 +65,7 @@ if(props.profile.personal &&   isLoaded(names) && isLoaded(clients_meta_info))
                                 />
                             )}
                             label="Profile"
-                            onPress={() => {alert("Profile coming soon")}}
+                            onPress={() => {props.navigation.navigate('Profile')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

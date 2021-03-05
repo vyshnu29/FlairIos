@@ -63,14 +63,12 @@ function Container(props) {
   }
 
   return (
-    <div>
       <Presentation
         {...state}
         handleTabChange={handleTabChange}
         addLocation={addLocation}
         deleteLocation={deleteLocation}
       />
-    </div>
   )
 }
 

@@ -54,11 +54,12 @@ const Presentation = (props) => {
 
   return (
       <>
-        <Header>
+        <Header style={styles1.Header}>
           <Left>
             <Button transparent>
               <Icon
                 name="arrow-back"
+                style={styles1.HeaderIcons}
                 onPress={() => {
                   props.navigation.goBack();
                 }}
@@ -66,7 +67,7 @@ const Presentation = (props) => {
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>Articles</Title>
+            <Title style={styles1.HeaderTitle}>Articles</Title>
           </Body>
           <Right>
             <View
@@ -80,6 +81,7 @@ const Presentation = (props) => {
                 anchor={
                   <Appbar.Action
                     icon="dots-vertical"
+                    style={styles1.HeaderIcons}
                     color="white"
                     onPress={openMenu}
                   />
@@ -293,3 +295,23 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
+
+const styles1 = StyleSheet.create({
+  HeaderTitle: {
+    fontSize: 20,
+    color: '#fff'
+  },
+  HeaderIcons: {
+    color: '#fff'
+  },
+  Header: {
+    backgroundColor: '#3f51b5'
+  },
+  CardStyles: {
+    elevation: 0, borderRadius: 16, width: '96%', alignSelf: 'center'
+  },
+  CardTitle: {
+    color: '#62B1F6', fontSize: 16, fontWeight: '400', paddingBottom: 5, paddingTop: 5, right: 66
+  }
+
+})

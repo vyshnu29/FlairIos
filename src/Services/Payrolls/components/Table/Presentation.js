@@ -4,6 +4,7 @@ import {
   Title,
   ActivityIndicator
 } from 'react-native-paper';
+import styles from '../../styles/table'
 import {
   View,
  Dimensions,
@@ -13,7 +14,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { Container, Header, Content, List,Input, ListItem, Left, Body, Right, Thumbnail,Button,Icon } from 'native-base';
+import { Container, Header, Card, List,Input, ListItem, Left, Body, Right, Thumbnail,Button,Icon } from 'native-base';
 import SearchInput, {createFilter} from 'react-native-search-filter';
 import { JSutils } from "../../../../shared/JSutils"
 import validation from "../../../../shared/validation"
@@ -69,18 +70,18 @@ if(!state.payrolls.isLoading)
   return (
     <Container>
       {!visible ? (
-        <Header>
+        <Header style={styles.Header}>
           <Left>
             <Button
               transparent
               onPress={() => {
                 props.navigation.goBack();
               }}>
-              <Icon name="arrow-back" />
+              <Icon name="arrow-back" style={styles.HeaderIcons}/>
             </Button>
           </Left>
           <Body>
-            <Title style={{color: 'white'}}>Payrolls</Title>
+            <Title style={styles.HeaderTitle}>Payrolls</Title>
           </Body>
           <Right>
             <Button
@@ -88,7 +89,7 @@ if(!state.payrolls.isLoading)
               onPress={() => {
                 SetVisible(!visible);
               }}>
-              <Icon name="search" />
+              <Icon name="search" style={styles.HeaderIcons}/>
             </Button>
           </Right>
         </Header>
@@ -96,14 +97,14 @@ if(!state.payrolls.isLoading)
 
       <View>
         {visible ? (
-          <Header>
+          <Header style={styles.Header}>
             <Left>
               <Button
                 transparent
                 onPress={() => {
                   SetVisible(!visible);
                 }}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={styles.HeaderIcons} />
               </Button>
             </Left>
             <Body>
@@ -128,47 +129,85 @@ if(!state.payrolls.isLoading)
       renderItem={({item}) => {
         return (
         
-            <List>
-              <ListItem avatar>
-               
-                <Body>
-                <TouchableOpacity>
-                    <Title
-                      style={{color: '#3F51B5', fontSize: 14}}
-                      mode="text">
-                      {item.employeeName.toUpperCase()}
-                    </Title>
-                  </TouchableOpacity>
-                  <View style={{flexDirection: 'row'}}>
-                    <View style={{flexDirection: 'column'}}>
-                      <Text>Duration</Text>
-                      <Text>Hrs</Text>
-                      <Text>Pay Rate</Text>
-                      <Text>Gross</Text>
-                      <Text>Fixed Pay</Text>
-                      <Text>Bonus</Text>
-                      <Text>Cummulative Bonus</Text>
-                      <Text>Pay Bonus</Text>
-                      <Text>Expenses</Text>
-                    </View>
-                 
-                    <View style={{flexDirection: 'column'}}>
-          
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.payrollDuration}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.totalWorkingHours}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.payRate}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.grossSalary}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.fixedPay}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.bonusObtained}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.cumulativeBonus}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.payBonus}</Text>
-                      <Text style={{left:10 , color:'#7d7d7d'}}>{item.expenseAmount}</Text>
-
-                    </View>
+          <View>
+          <Card style={styles.container}>
+            <View style={styles.labelContainer}>
+              <View style={styles.mainTextContainer}>
+                <View>
+                  <Title
+                    style={{
+                      color: '#62B1F6',
+                      fontSize: 17,
+                      fontWeight: '400',
+                      bottom: 5,
+                    }}>
+                    {metaObj.toNameCase(item.employeeName)}
+                  </Title>
+                </View>
+              </View>
+              <View
+                style={{
+                  borderRadius: 16,
+                  top: 10,
+                  backgroundColor:'#f5f5f5',
+                }}>
+                <View>
+                  <Text style={[styles.labelText1]}>{item.totalWorkingHours} Hrs</Text>
+                </View>
+              </View>
+            </View>
+           
+              <View>
+                  <View style={{paddingTop:10}}>
+                    <Text style={styles.authorName}>
+                    {item.payrollDuration}
+                    </Text>
                   </View>
-                </Body>
-              </ListItem>
-            </List>
+                <View style={{flexDirection:'row',justifyContent:'space-between',paddingTop:5}}>
+                  <View>
+                    <Text style={styles.authorName}>
+                      Pay Rate : {item.payRate}
+                    </Text>
+                  </View>
+                  <View style={{paddingRight:25}}>
+                    <Text style={styles.authorName}>
+                      Gross Salary : {item.grossSalary}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{flexDirection:'row',justifyContent:'space-between',paddingTop:5}}>
+                  <View>
+                    <Text style={styles.authorName}>
+                    Fixed Pay : {item.fixedPay}
+                    </Text>
+                  </View>
+                  <View style={{paddingRight:25}}>
+                    <Text style={styles.authorName}>
+                      Expenses : {item.expenseAmount}
+                    </Text>
+                  </View>
+                </View>
+
+              </View>
+           
+            
+            <ListItem/>
+            <View style={{flexDirection:'row',justifyContent:'space-between',paddingTop:15}}>
+           <View>
+           <Text style={{fontSize:14,color:'#62b1f6'}}>{item.bonusObtained}</Text>
+           <Text style={{fontSize:10,fontWeight:'300',color:'grey',alignSelf:'center'}}>Bonus</Text>
+           </View>
+           <View>
+           <Text style={{fontSize:14,color:'#62b1f6'}}>{item.cumulativeBonus}</Text>
+           <Text style={{fontSize:10,fontWeight:'300',color:'grey',alignSelf:'center'}}>Cummulative Bonus</Text>
+           </View>
+           <View>
+           <Text style={{fontSize:14,color:'#62b1f6'}}>{item.payBonus}</Text>
+           <Text style={{fontSize:10,fontWeight:'300',color:'grey',alignSelf:'center'}}>Pay Bonus</Text>
+           </View>
+         </View>
+          </Card>
+        </View>
          
         );
       }}

@@ -72,14 +72,12 @@ function Container(props) {
   }
 
   return (
-    <div>
       <Presentation
         {...state}
         handleTabChange={handleTabChange}
         addContact={addContact}
         deleteContact={deleteContact}
       />
-    </div>
   )
 }
 
