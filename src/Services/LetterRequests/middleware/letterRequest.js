@@ -25,6 +25,7 @@ import {
   waitingMsg,
   stopWaitMsg,
   errorMsg,
+  Print,
   successMsg,
 } from "../../../shared/SnackBars/index"
 import make_API_call from "../../../providers/REST_API"
@@ -248,21 +249,23 @@ export const loadIssuedRequestLetter = (payload) => (
 
   dispatch(setListener(subscribe, "issuedLetterRequests"))
 }
+
 export const requestHTMLContent = (payload) => (
   dispatch,
   getState,
   { getFirebase }
 ) => {
   dispatch(htmlContentRequest())
+  waitingMsg('Loading')
   const { employeeID, requestID, data } = payload
-  console.log(payload)
   make_API_call(
     "post",
     `/letters/html?employeeID=${employeeID}&requestID=${requestID}`,
     data
   )
     .then((data) => {
-      console.log(data)
+      console.log('as',data.content)
+      Print(data.content)
       return dispatch(htmlContentSuccess(data.content))
     })
     .catch((err) => {

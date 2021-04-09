@@ -44,6 +44,8 @@ export default compose(
             subcollections: [
               {
                 collection: "HISTORY",
+                orderBy: ["createdAt", "desc"],
+                limit: 15,
                 storeAs: "history",
               },
             ],

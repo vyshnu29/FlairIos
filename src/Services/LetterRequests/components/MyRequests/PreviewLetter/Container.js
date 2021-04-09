@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { requestHTMLContent, setState } from "../../../middleware/letterRequest"
@@ -14,11 +15,16 @@ function Container(props) {
     })
   }
 
+  // useEffect(() => {
+  //   requestHtml()
+  // }, [])
+  
   const handleClose = () => {
     set_state({
       previewDialog: "",
     })
   }
+  
   const requestHtml = () => {
     let data = {
       letterIssueDate: reqData.approvedDetails.letterIssueDate,
@@ -42,16 +48,17 @@ function Container(props) {
       data,
     }
 
-    console.log(payload)
-
+   // console.log(payload)
+ 
     request_html_content(payload)
+
+    //handleClose()
   }
   //   useEffect(() => {
+ 
 
   //   }, [previewDialog === reqData.id])
-  console.log(props.stateLetterContent, props.isLoadingLetterContent)
   return (
-    <div>
       <Presentation
         {...props}
         open={open}
@@ -59,13 +66,12 @@ function Container(props) {
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
-    </div>
   )
 }
 const mapStateToProps = (state, ownProps) => {
   return {
     previewDialog: state.letterRequests.letterRequestsList["previewDialog"],
-    stateLetterContent: state.letterRequests.letterRequestsList["htmlContent"],
+    htmlContentS: state.letterRequests.letterRequestsList["htmlContent"],
     isLoadingLetterContent:
       state.letterRequests.letterRequestsList["htmlContent"].isLoading,
   }

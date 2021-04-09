@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import styles from '../../../styles/RequestList';
+import PreviewLetter from "../PreviewLetter"
 import {createFilter} from 'react-native-search-filter';
 import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail,Card } from 'native-base';
 import Validation from "../../../../../shared/getMetaInfo"
@@ -21,8 +22,7 @@ import HTMLView from 'react-native-htmlview';
 
 
 function Presentation(props) {
-  const validate = new Validation()
- 
+  const validate = new Validation();
   const {
     state,
     condition,
@@ -30,57 +30,71 @@ function Presentation(props) {
     searchTerm,
     reqLettersList,
     authorizedSignatures,
-  } = props
-  const { myReq } = props
-  
+  } = props;
+  const {myReq} = props;
+
   // const [state] = useContext(DataContext)
   const formatter = (date) => {
-    let final = ""
+    let final = '';
     try {
       final = Intl.DateTimeFormat(
-        configuration["date-code"],
-        configuration.dateformat
-      ).format(new Date(date))
+        configuration['date-code'],
+        configuration.dateformat,
+      ).format(new Date(date));
     } catch (error) {
-      console.log(error)
-      final = date
+      console.log(error);
+      final = date;
     }
-    return final
-  }
-  const data = Object.values(state[tabPair[condition]].data)
-  let requests = []
-  let letters = []
-  let signatures = []
+    return final;
+  };
+  const data = Object.values(state[tabPair[condition]].data);
+  let requests = [];
+  let letters = [];
+  let signatures = [];
   try {
-    requests = myReq ? data : data
-    letters = reqLettersList
-    signatures = authorizedSignatures
+    requests = myReq ? data : data;
+    letters = reqLettersList;
+    signatures = authorizedSignatures;
   } catch (error) {
-    requests = []
-    letters = []
-    signatures = []
+    requests = [];
+    letters = [];
+    signatures = [];
   }
 
   const ConsultType = (item) => {
-    if (item.status === "Rejected") return <Title style={{color: '#d9534f', fontSize: 14,right:5 }}  mode="text"> {item.id.toUpperCase()} </Title>
-    else if (item.status === "Approved")
-      return <Title style={{color: '#5cb85c', fontSize: 14  ,right:5 }}  mode="text" > {item.id.toUpperCase()} </Title>
-      return <Title style={{color: '#f0ad4e', fontSize: 14 ,right:5 }}  mode="text"> {item.id.toUpperCase()} </Title>
+    if (item.status === 'Rejected')
+      return (
+        <View style={{borderRadius: 16, backgroundColor: '#db2828'}}>
+          <Text style={styles.labelText1}> {item.id.toUpperCase()} </Text>
+        </View>
+      );
+    else if (item.status === 'Approved')
+      return (
+        <View style={{borderRadius: 16, backgroundColor: '#21ba45'}}>
+          <Text style={styles.labelText1}> {item.id.toUpperCase()} </Text>
+        </View>
+      );
+    else
+      return (
+        <View style={{borderRadius: 16, backgroundColor: 'orange'}}>
+          <Text style={styles.labelText1}> {item.id.toUpperCase()} </Text>
+        </View>
+      );
   };
   const reqContent = requests.map((request) => {
     return {
       requestid: request.id,
       subject: configuration.letterTypes.filter(
         (letter) =>
-          letter.replace(/ /g, "").toLowerCase() === request.letterType
+          letter.replace(/ /g, '').toLowerCase() === request.letterType,
       )[0],
       description: request.description,
       timestamp: formatter(request.createdAt),
       status: request.isApproved
-        ? "Approved"
+        ? 'Approved'
         : request.isRejected
-        ? "Rejected"
-        : "Pending",
+        ? 'Rejected'
+        : 'Pending',
       id: request.id,
       employeename: validate.emailToName(request.employeeID),
       uid: request.employeeID,
@@ -88,14 +102,14 @@ function Presentation(props) {
       additionalDetails: request.additionalInformation,
       issuedBy: request.approvedDetails
         ? validate.emailToName(request.approvedDetails.approvedBy)
-        : "",
-      comment: request.hasOwnProperty("approvedDetails")
+        : '',
+      comment: request.hasOwnProperty('approvedDetails')
         ? request.approvedDetails.description
-        : "",
+        : '',
       req_doc: request.attachmentDetails.publicURL,
-    }
-  })
-  
+    };
+  });
+
   const KEYS_TO_FILTERS = [
     'employeename',
     'status',
@@ -103,13 +117,18 @@ function Presentation(props) {
     'approvedDetails',
     ' timestamp',
   ];
-  const filteredInfo = reqContent.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+  const filteredInfo = reqContent.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS),
+  );
+
+  
+
   return (
     <Container>
     <FlatList
       data={filteredInfo}
       renderItem={({item}) => {
-        console.log('ppo',item)
+
         return (
         
           <TouchableOpacity>
@@ -149,7 +168,26 @@ function Presentation(props) {
                   </Text>
                 </View>
               </TouchableOpacity>
-              <View style={styles.authorBlankContainer} />
+              <TouchableOpacity>
+                    {
+                      item.status === 'Approved' ?
+                      <PreviewLetter
+                      headerAndFooter={true}
+                      htmlContent={item.docContent}
+                      iconBtn={true}
+                      isString={true}
+                      reqData={item}
+                      signatures={signatures}
+                      letters={letters}
+                    />
+                  : item.status === "Rejected" ? (
+                    <View style={{marginTop:15}}>
+                      <Text>ReOpen</Text>
+                    </View>
+                  
+                  ) : null}
+                    
+                  </TouchableOpacity>
             </View>
           </Card>
         </TouchableOpacity>

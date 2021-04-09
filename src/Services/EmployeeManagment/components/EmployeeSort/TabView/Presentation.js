@@ -99,7 +99,7 @@ export default function TabsView(props) {
         index={1}
           heading={
             <TabHeading style={{backgroundColor:'#3f51b5'}}>
-              <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Active </Text>
+             <Text style={{color:'white', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>ACTIVE </Text>
               </TabHeading>
           }>
          <EmployeeSort condition={1} searchTerm={searchTerm} {...props}/>
@@ -108,7 +108,7 @@ export default function TabsView(props) {
         index={0}
           heading={
             <TabHeading style={{backgroundColor:'#3f51b5'}}> 
-             <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>All  </Text>
+<Text style={{color:'white', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>ALL  </Text>
             </TabHeading>
           }>
           <EmployeeSort condition={0} searchTerm={searchTerm} {...props}/>
@@ -117,7 +117,7 @@ export default function TabsView(props) {
         index={2}
           heading={
           <TabHeading style={{backgroundColor:'#3f51b5'}}>
-            <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>In Active </Text>
+           <Text style={{color:'white', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>INACTIVE </Text>
           </TabHeading>
           }>
          <EmployeeSort condition={2} searchTerm={searchTerm} {...props} />
@@ -126,7 +126,7 @@ export default function TabsView(props) {
         index={3}
           heading={
             <TabHeading style={{backgroundColor:'#3f51b5'}}> 
-              <Text style={{color:'#fff',backgroundColor:'#3f51b5', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>Suspended  </Text>
+              <Text style={{color:'white', fontSize:14,fontWeight: 'bold',lineHeight: 20}}>SUSPENDED </Text>
             </TabHeading>
           }>
          <EmployeeSort condition={3} searchTerm={searchTerm} {...props} />

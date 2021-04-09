@@ -37,6 +37,7 @@ import History from '../../Services/History/index'
 import ResetPassword from '../../Services/Authentication/components/ChangePassword/index'
 import EssRequest from '../../screens/ESSRequestScreen'
 import LetterRequest from '../../screens/LetterRequestScreen'
+import EmployeeProfileMenu from '../../screens/EmployeeProfileScreen'
 import ClientExpenses from '../../screens/ClientExpensesScreen'
 import Spinner from "react-native-loading-spinner-overlay"
 
@@ -79,6 +80,7 @@ function StackScreens(props) {
           <Stack.Screen name="Expenses"  component={Expenses}/>
           <Stack.Screen name="ClientExpenses"  component={ClientExpenses}/>
           <Stack.Screen name="Invoices"  component={Invoices}/>
+          <Stack.Screen name="EmployeeProfileMenu" component={EmployeeProfileMenu} />
           <Stack.Screen name="Deductions"  component={Deductions}/>
           <Stack.Screen name="PayRolls"  component={PayRolls}/>
           <Stack.Screen name="History"  component={History}/>

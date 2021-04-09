@@ -43,64 +43,90 @@ function Presentation(props) {
       renderItem={({item}) => {
         return (
           <Card style={styles.container} noShadow>
-          <TouchableOpacity
-          
-          activeOpacity={0.95}
-          onPress={() => {
-            props.navigation.navigate('ViewClient',{clientId : item.clientId})}}>
-          <View style={styles.mainTextContainer}>
-            {
-              item.logo ?
-              <Avatar.Image
-              size={45}
-              style={{top:10}}
-                    source={{uri: item.logo}}
-                  />: <Avatar.Text
-                  size={45}
-                  style={{top:10}}
-                  label={item.businessDisplayName[0]}
-                  style={{backgroundColor: "#2970ff"}}
-                />
-            } 
-           
-           <View style={{marginLeft:25}}>
-             <View style={{flexDirection:'row'}}>
-             <Text style={{
-                            color: '#62B1F6',
-                            fontSize: 17,
-                            fontWeight: '400',
-                            bottom: 5,
-                          }}>{item.businessDisplayName}</Text>
-             {
+              <TouchableOpacity
+                activeOpacity={0.95}
+                onPress={() => {
+                  props.navigation.navigate('ViewClient', {
+                    clientId: item.clientId,
+                  });
+                }}>
+                <View style={{flexDirection:'row',paddingTop:10}}>
+                  {item.logo ? (
+                    <Avatar.Image
+                      size={45}
+                      style={{top: 10}}
+                      source={{uri: item.logo}}
+                    />
+                  ) : (
+                    <View style={{top:10}}>
+                      <Avatar.Text
+                      size={45}
+                      label={item.businessDisplayName[0]}
+                      style={{backgroundColor: '#2970ff'}}
+                    />
+                    </View>
+                    
+                  )}
+                   <View style={{paddingTop:5,paddingLeft:10}}>
+                   <Text
+                        style={{
+                          color: '#62B1F6',
+                          fontSize: 17,
+                          fontWeight: '400',
+                          
+                        }}>
+                        {item.businessDisplayName.length > 20 ? item.businessDisplayName.substring(0, 20) + '...' : item.businessDisplayName}
+                      </Text>
+                      <View >
+                      <TouchableOpacity
+                        onPress={() => {
+                          makeCall(item.phone);
+                        }}>
+                        <Text
+                          style={{color: 'grey', fontSize: 13, paddingTop: 7}}>
+                          {item.phone}
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => Linking.openURL('mailto:' + item.email)}>
+                        <Text style={{color: 'grey', fontSize: 12}}>
+                          {item.email.trim()}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                   </View>
+                
+                 </View>
+                 <View style={{alignSelf:'flex-end',bottom:60}}>
+                 {item.status === 0 ? (
+                        <View
+                          style={[
+                            styles.labelTextContainer,
+                            {marginLeft: 8, backgroundColor: '#21ba45'},
+                          ]}>
+                          <TouchableOpacity>
+                            <Text style={styles.labelText}>
+                              {item.clientId}
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      ) : (
+                        <View
+                          style={[
+                            styles.labelTextContainer,
+                            {marginLeft: 8, backgroundColor: '#f0ad4e'},
+                          ]}>
+                          <TouchableOpacity>
+                            <Text style={styles.labelText}>
+                              {item.clientId}
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      )}
+                 </View>
                
-               item.status === 0 ?
-               <View style={[styles.labelTextContainer,{marginLeft:8,backgroundColor:'#21ba45'}]}>
-               <TouchableOpacity>
-                 <Text style={styles.labelText}>{item.clientId}</Text>
-               </TouchableOpacity>
-             </View> :
-              <View style={[styles.labelTextContainer,{marginLeft:8,backgroundColor:'#f0ad4e'}]}>
-              <TouchableOpacity>
-                <Text style={styles.labelText}>{item.clientId}</Text>
               </TouchableOpacity>
-            </View>
-             }
-           
-             </View>
-            <View style={{marginTop:10}}>
-          <TouchableOpacity  onPress={() => {makeCall(item.phone)}}>
-          <Text style={{color:'grey',fontSize:13,paddingTop:7}}>{item.phone}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity  onPress={() => Linking.openURL('mailto:' + item.email) }>
-          <Text style={{color:"grey",fontSize:12}}>{item.email.trim()}</Text>
-          </TouchableOpacity>
-          </View>
-
-        </View>
-    
-          </View>
-        </TouchableOpacity>
-        </Card>
+            </Card>
          
         );
       }}
